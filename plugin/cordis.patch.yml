@@ -1,0 +1,3 @@
+- insert:
+    - id: physics-lab-sprint
+      name: '@local/physics-lab-sprint'
