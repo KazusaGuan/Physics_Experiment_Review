@@ -289,7 +289,14 @@ const CSS = `
 }
 .pl-cheat-head:hover { background: color-mix(in srgb, var(--dsw-alias-bg-layer-2) 60%, transparent); }
 .pl-cheat-body { padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 14px; }
-.pl-cheat-section h4 { margin: 0 0 6px; font-size: 12.5px; font-weight: 650; color: var(--dsw-alias-brand-primary); }
+.pl-cheat-section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.pl-cheat-section-head h4 { flex: 1; min-width: 0; margin: 0; font-size: 12.5px; font-weight: 650; color: var(--dsw-alias-brand-primary); }
+.pl-ai-btn {
+  flex: none; height: 23px; padding: 0 8px; font-size: 10.5px; color: var(--dsw-alias-brand-primary);
+  border-color: color-mix(in srgb, var(--dsw-alias-brand-primary) 30%, transparent);
+  background: transparent;
+}
+.pl-ai-btn:hover { background: color-mix(in srgb, var(--dsw-alias-brand-primary) 8%, transparent); }
 .pl-cheat-section ul { margin: 0; padding-left: 18px; }
 .pl-cheat-section li { margin: 3px 0; font-size: 12.5px; color: var(--dsw-alias-label-primary); }
 .pl-cheat-formulas {

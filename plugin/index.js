@@ -2,7 +2,7 @@
 import { extractText, ExtractError } from './lib/extract.js'
 import { buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 
-const VERSION = '1.1.1'
+const VERSION = '1.1.2'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const MAX_BODY = 24 * 1024 * 1024

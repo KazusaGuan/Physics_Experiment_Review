@@ -1572,7 +1572,7 @@ BANK.push(
 
 /* Experiment / dimension metadata and the quick-reference handbook. */
 
-const APP_VERSION = '1.1.1';
+const APP_VERSION = '1.1.2';
 
 const EXPS = [
   { id: 'bridge', name: '交直流电桥', badge: '桥', short: '电桥', accent: 'brand' },
@@ -2228,7 +2228,14 @@ const CSS = `
 }
 .pl-cheat-head:hover { background: color-mix(in srgb, var(--dsw-alias-bg-layer-2) 60%, transparent); }
 .pl-cheat-body { padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 14px; }
-.pl-cheat-section h4 { margin: 0 0 6px; font-size: 12.5px; font-weight: 650; color: var(--dsw-alias-brand-primary); }
+.pl-cheat-section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.pl-cheat-section-head h4 { flex: 1; min-width: 0; margin: 0; font-size: 12.5px; font-weight: 650; color: var(--dsw-alias-brand-primary); }
+.pl-ai-btn {
+  flex: none; height: 23px; padding: 0 8px; font-size: 10.5px; color: var(--dsw-alias-brand-primary);
+  border-color: color-mix(in srgb, var(--dsw-alias-brand-primary) 30%, transparent);
+  background: transparent;
+}
+.pl-ai-btn:hover { background: color-mix(in srgb, var(--dsw-alias-brand-primary) 8%, transparent); }
 .pl-cheat-section ul { margin: 0; padding-left: 18px; }
 .pl-cheat-section li { margin: 3px 0; font-size: 12.5px; color: var(--dsw-alias-label-primary); }
 .pl-cheat-formulas {
@@ -4276,13 +4283,61 @@ function ReviewView(props) {
   );
 }
 
-/* Quick-reference handbook. */
+/* Quick-reference handbook with per-section AI explanation. */
+
+function buildCheatPrompt(sheet, section) {
+  const lines = [
+    '我在复习大学物理实验（下），想通过对话弄懂速查手册里的这个知识板块。',
+    '',
+    '【主题】' + sheet.name,
+    '【板块】' + section.title,
+    '【要点】',
+  ];
+  (section.items || []).forEach((item, index) => {
+    lines.push(index + 1 + '. ' + item);
+  });
+  if (section.formulas && section.formulas.length) {
+    lines.push('', '【公式】');
+    section.formulas.forEach((formula) => lines.push(formula));
+  }
+  lines.push(
+    '',
+    '请先：',
+    '1. 用 3~5 句话总结这个板块的核心；',
+    '2. 结合一个具体实验场景解释这些公式/规则怎么用；',
+    '3. 指出考试里最容易错的 2 个点。',
+    '然后针对我接下来的追问继续讲解，必要时给出计算示例。'
+  );
+  return lines.join('\n');
+}
 
 function CheatSheet() {
   const [open, setOpen] = useState({ general: true });
+  const [fallback, setFallback] = useState('');
+  const [copied, setCopied] = useState(false);
 
   function toggle(id) {
     setOpen(Object.assign({}, open, { [id]: !open[id] }));
+  }
+
+  function explain(sheet, section) {
+    const prompt = buildCheatPrompt(sheet, section);
+    if (askInChat(prompt)) return;
+    setFallback(prompt);
+    setCopied(false);
+  }
+
+  async function copyFallback() {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(fallback);
+        setCopied(true);
+        return;
+      }
+      throw new Error('clipboard-unavailable');
+    } catch (err) {
+      setCopied(false);
+    }
   }
 
   return h(
@@ -4292,7 +4347,11 @@ function CheatSheet() {
       'div',
       null,
       h('h2', { className: 'pl-h2' }, '速查手册'),
-      h('p', { className: 'pl-sub' }, '考前过一遍：核心公式、操作要点、易错提醒。点标题展开或收起。')
+      h(
+        'p',
+        { className: 'pl-sub' },
+        '考前过一遍：核心公式、操作要点、易错提醒。点板块标题旁的「AI 讲解」可以把该板块带进新对话，按 Enter 让 AI 讲。'
+      )
     ),
     h(
       'div',
@@ -4321,7 +4380,21 @@ function CheatSheet() {
                   h(
                     'div',
                     { className: 'pl-cheat-section', key: si },
-                    h('h4', null, section.title),
+                    h(
+                      'div',
+                      { className: 'pl-cheat-section-head' },
+                      h('h4', null, section.title),
+                      h(
+                        'button',
+                        {
+                          type: 'button',
+                          className: 'pl-btn pl-btn-sm pl-ai-btn',
+                          title: '把这一板块带进新对话，让 AI 讲解',
+                          onClick: () => explain(sheet, section),
+                        },
+                        '✦ AI 讲解'
+                      )
+                    ),
                     h(
                       'ul',
                       null,
@@ -4336,7 +4409,51 @@ function CheatSheet() {
             : null
         )
       )
-    )
+    ),
+
+    fallback
+      ? h(
+          'div',
+          {
+            className: 'pl-ask-overlay',
+            onMouseDown: (event) => {
+              if (event.target === event.currentTarget) setFallback('');
+            },
+          },
+          h(
+            'div',
+            { className: 'pl-ask', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'AI 讲解' },
+            h(
+              'div',
+              { className: 'pl-ask-head' },
+              h('span', { className: 'pl-badge pl-badge-sm pl-acc-brand' }, 'AI'),
+              h(
+                'div',
+                { className: 'pl-grow' },
+                h('b', { style: { fontSize: 13.5 } }, 'AI 讲解'),
+                h('p', { className: 'pl-sub' }, '当前页面无法直接打开对话')
+              ),
+              h('button', { type: 'button', className: 'pl-btn pl-btn-ghost pl-btn-sm', onClick: () => setFallback('') }, '×')
+            ),
+            h(
+              'p',
+              { className: 'pl-ask-note' },
+              '复制下面这段内容，粘贴到对话输入框里按 Enter，就能让 AI 结合这个板块讲解。'
+            ),
+            h('textarea', { className: 'pl-upload-text', readOnly: true, value: fallback }),
+            h(
+              'div',
+              { className: 'pl-ask-actions' },
+              h('button', { type: 'button', className: 'pl-btn', onClick: () => setFallback('') }, '关闭'),
+              h(
+                'button',
+                { type: 'button', className: 'pl-btn pl-btn-primary', onClick: copyFallback },
+                copied ? '已复制' : '复制内容'
+              )
+            )
+          )
+        )
+      : null
   );
 }
 
