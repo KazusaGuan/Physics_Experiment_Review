@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { extractText, ExtractError } from './lib/extract.js'
 import { buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 
-const VERSION = '1.2.0'
+const VERSION = '1.2.1'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const ASSETS_PATH = '/physics-lab/assets/'

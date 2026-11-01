@@ -70,7 +70,7 @@
 仓库：https://github.com/KazusaGuan/Physics_Experiment_Review.git
 插件目录：plugin/
 插件包名：@local/physics-lab-sprint
-版本：1.2.0
+版本：1.2.1
 
 步骤：
 1. 确认当前会话有 plugin_manager 工具，且权限为 danger-full-access；若没有，先让用户开启，不要自行绕过审批。
@@ -91,7 +91,7 @@
 8. 不要修改仓库源码，不要清空用户的 localStorage（学习记录、错题、上传的专项都在里面）。
 9. 报告：安装绝对路径、版本、两处 Slot 状态，以及需要用户手动刷新页面的提示。
 
-完成后告诉用户：打开左侧「物理冲刺」图标，标题下方应显示 v1.2.0；
+完成后告诉用户：打开左侧「物理冲刺」图标，标题下方应显示 v1.2.1；
 若没有，按 Ctrl+R 刷新，仍不行则重启 Harness。
 ```
 
@@ -107,7 +107,7 @@ git clone https://github.com/KazusaGuan/Physics_Experiment_Review.git
 plugin_manager action=install_bundle target=<绝对路径>/Physics_Experiment_Review/plugin
 ```
 
-安装后打开左侧 **物理冲刺** 图标；标题下方显示 `v1.2.0` 即成功。
+安装后打开左侧 **物理冲刺** 图标；标题下方显示 `v1.2.1` 即成功。
 如果之前装过旧版，需要先 `remove_bundle` 再 `install_bundle`，否则浏览器可能缓存旧的客户端模块；装完刷新一次页面。
 
 > 安装插件等于在本机执行仓库中的 Host 代码（`index.js` / `lib/`）；请先阅读源码。插件只注册一个本机路由
@@ -160,6 +160,7 @@ plugin_manager action=install_bundle target=<绝对路径>/Physics_Experiment_Re
 - `.docx`、`.txt`、`.md` 无需额外依赖；`.pdf` 需要本机 Python + `pypdf`（或 `pdftotext`）；
   扫描版 PDF 没有文字层，无法提取。
 - 旧版 `.doc` 不支持，请先另存为 `.docx`。
+- 上传文档目前只提取文字，不抽取文档插图；AI 生成的“读图题”是文字描述的仪器/读数题，内置题库的 25 张题图才来自讲义原图。
 - AI 生成内容可能有误，请对照讲义核对；卡片会标「AI 生成」。
 
 ## 数据存储
@@ -197,7 +198,7 @@ node --check client.js
 **左侧没有「物理冲刺」图标？**
 确认插件已启用；刷新页面（Ctrl+R）；仍不行重启 Harness。
 
-**版本号不是 v1.2.0？**
+**版本号不是 v1.2.1？**
 浏览器还在用旧的客户端模块。先 `remove_bundle` 再 `install_bundle`，然后刷新页面。
 
 **点「填入对话」没反应？**

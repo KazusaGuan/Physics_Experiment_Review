@@ -2678,7 +2678,7 @@ BANK.push(
 
 /* Experiment / dimension metadata and the quick-reference handbook. */
 
-const APP_VERSION = '1.2.0';
+const APP_VERSION = '1.2.1';
 
 const EXPS = [
   { id: 'bridge', name: '交直流电桥', badge: '桥', short: '电桥', accent: 'brand' },
@@ -6266,6 +6266,7 @@ function UploadDialog(props) {
         'p',
         { className: 'pl-ask-note' },
         '生成会调用当前默认模型，约 20~60 秒；题目会保存为新的实验专项，可随时删除。' +
+          '上传文档目前只提取文字，读图题会以文字描述的仪器/读数题呈现，不会自动带入文档插图。' +
           'AI 生成内容可能有误，请对照讲义核对。' +
           (mode === 'file' ? ' PDF 若解析失败，可改用「粘贴文本」。' : '')
       ),

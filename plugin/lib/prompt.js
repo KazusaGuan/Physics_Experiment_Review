@@ -6,6 +6,7 @@ const DIM_ALIAS = {
   phenomenon: 'phenomenon',
   reading: 'reading',
   data: 'data',
+  uncertainty: 'data',
   原理: 'principle',
   实验原理: 'principle',
   操作: 'phenomenon',
