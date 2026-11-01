@@ -105,9 +105,9 @@
   },
   {
     "file": "polar-states.png",
-    "w": 1200,
-    "h": 346,
-    "bytes": 14701,
+    "w": 1433,
+    "h": 414,
+    "bytes": 56663,
     "source": "偏振光与双折射",
     "n": 2
   },
@@ -115,7 +115,7 @@
     "file": "polar-calcite.png",
     "w": 1045,
     "h": 349,
-    "bytes": 5426,
+    "bytes": 30168,
     "source": "偏振光与双折射",
     "n": 4
   },

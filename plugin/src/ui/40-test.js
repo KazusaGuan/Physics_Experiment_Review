@@ -31,7 +31,7 @@ function QuestionMedia(props) {
         'figure',
         { className: 'pl-figure' },
         h('img', {
-          src: '/physics-lab/assets/' + encodeURIComponent(q.figure),
+          src: '/physics-lab/assets/' + encodeURIComponent(q.figure) + '?v=' + encodeURIComponent(APP_VERSION),
           alt: q.figureAlt || '题图',
           loading: 'lazy',
         }),

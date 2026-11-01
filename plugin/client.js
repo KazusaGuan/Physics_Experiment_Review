@@ -2668,7 +2668,7 @@ BANK.push(
 
 /* Experiment / dimension metadata and the quick-reference handbook. */
 
-const APP_VERSION = '1.4.1';
+const APP_VERSION = '1.4.2';
 
 const EXPS = [
   { id: 'bridge', name: '交直流电桥', badge: '桥', short: '电桥', accent: 'brand' },
@@ -4726,7 +4726,7 @@ function QuestionMedia(props) {
         'figure',
         { className: 'pl-figure' },
         h('img', {
-          src: '/physics-lab/assets/' + encodeURIComponent(q.figure),
+          src: '/physics-lab/assets/' + encodeURIComponent(q.figure) + '?v=' + encodeURIComponent(APP_VERSION),
           alt: q.figureAlt || '题图',
           loading: 'lazy',
         }),
