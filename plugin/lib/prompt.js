@@ -72,6 +72,37 @@ function cleanName(value, fallback) {
   return Array.from(text).slice(0, 20).join('')
 }
 
+function normalizeReading(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[约≈~]/g, '')
+    .replace(/[º°]/g, '°')
+    .replace(/[′’']/g, "'")
+    .replace(/[″”"]/g, '"')
+}
+
+function validateReading(question, images) {
+  if (question.dim !== 'reading') return true
+  if (question.type !== 'single') return false
+  if (!question.figure) return images.length === 0
+  const image = images.filter((item) => item.filename === question.figure)[0]
+  if (!image) return false
+  if (!question.figureEvidence) return false
+  const option = normalizeReading(question.options[question.answer])
+  if (!option) return false
+  const stem = normalizeReading(question.stem)
+  if (stem.indexOf(option) !== -1) return false
+  const readings = image.readings || []
+  if (readings.length) {
+    const values = readings.map((reading) => normalizeReading(reading.value)).filter(Boolean)
+    const matched = values.some((value) => option.indexOf(value) !== -1 || value.indexOf(option) !== -1)
+    if (!matched) return false
+    if (values.some((value) => stem.indexOf(value) !== -1)) return false
+  }
+  return true
+}
+
 function normalizeQuestion(item, expId, index, images) {
   if (!item || typeof item !== 'object') return null
   const stem = str(item.stem, 600)
@@ -90,6 +121,7 @@ function normalizeQuestion(item, expId, index, images) {
     stem,
     explain,
     formula: str(item.formula, 400),
+    figureEvidence: str(item.figureEvidence, 400),
     tip: str(item.tip, 400),
     tags: Array.isArray(item.tags)
       ? item.tags.map((tag) => str(tag, 30)).filter(Boolean).slice(0, 4)
@@ -103,8 +135,10 @@ function normalizeQuestion(item, expId, index, images) {
     base.figure = image.filename
     base.figureAlt = str(item.figureNote, 300) || image.description || '附图 ' + figIndex
     base.figureCaption = str(item.figureCaption, 200) || image.description || '附图 ' + figIndex
+    if (!base.figureEvidence) base.figureEvidence = image.description || ''
   }
   if (type === 'numeric') {
+    if (dim === 'reading') return null
     const answer = Number(item.answer)
     if (!isFinite(answer)) return null
     const rawTol = Number(item.tol)
@@ -124,6 +158,7 @@ function normalizeQuestion(item, expId, index, images) {
     : []
   if (options.length < 3 || options.length > 6) return null
   if (type === 'multi') {
+    if (dim === 'reading') return null
     const raw = Array.isArray(item.answer) ? item.answer : [item.answer]
     const indexes = []
     raw.forEach((value) => {
@@ -135,18 +170,30 @@ function normalizeQuestion(item, expId, index, images) {
   }
   const answer = toIndex(item.answer, options.length)
   if (answer < 0) return null
-  return Object.assign({}, base, { options, answer })
+  const question = Object.assign({}, base, { options, answer })
+  return validateReading(question, images) ? question : null
 }
 
-export function buildFigureAnalysisPrompt(name, count) {
+export function buildFigureAnalysisPrompt(text, name, count) {
   return [
     '你会收到 ' + count + ' 张实验讲义插图，按消息中的顺序编号为 附图1..附图' + count + '。',
     '请只根据你实际看到的画面逐图描述，不要根据文字推测图中不存在的内容。',
-    '只输出 JSON：{"figures":[{"index":1,"description":"...","suitable":true}, ...]}',
+    '只输出 JSON：{"figures":[{"index":1,"description":"...","suitable":true,"readings":[{"label":"...","value":"...","how":"...","confidence":"high"}]}]}',
     '- index：1 到 ' + count + '；',
     '- description：1~2 句，写清图中实际可见的仪器、读数、刻度、曲线、电路、光路、表格或装置连接；',
-    '- suitable：这张图是否适合出题；公式截图、图标、装饰图、模糊不清或与实验无关的图填 false。',
-    '每张图都要有一项，不要遗漏。'
+    '- suitable：这张图是否适合出题；公式截图、图标、装饰图、模糊不清或与实验无关的图填 false；',
+    '- readings：你从图中实际读出的值或可辨认部件，没有就填 []；每项包含：',
+    '  label：读的是什么（如“刻度盘角度”“读数窗示值”“短路电流”“部件名称”）；',
+    '  value：按图上显示写，保留单位和度分符号（如“271°28′”“0.00048 mm”“58 mA”“检流计”）；',
+    '  how：你依据图中哪个刻度、游标、指针、曲线交点或标记读出来的；',
+    '  confidence：high / medium / low；看不清或只能猜的填 low。',
+    '- 如果图是刻度盘/表盘，先判断主刻度每一格代表多少、细分刻度怎么读，再读数；',
+    '- 绝对不要根据讲义文字补一个图中没有的读数；读不出就不写，或 confidence 填 low。',
+    '',
+    '【讲义文字，只用于理解图和刻度含义，不得照抄其中的读数】',
+    '"""',
+    String(text || '').slice(0, 12000),
+    '"""'
   ].join('\n')
 }
 
@@ -157,15 +204,31 @@ export function parseFigureAnalysis(raw, count) {
   list.forEach((item) => {
     const index = Number(item && item.index)
     if (!Number.isInteger(index) || index < 1 || index > count) return
+    const description = str(item.description, 400)
+    const readings = Array.isArray(item.readings)
+      ? item.readings
+          .map((reading) => {
+            const value = str(reading && reading.value, 60)
+            const placeholder = /^8{3,}/.test(value.replace(/\s+/g, ''))
+            return {
+              label: str(reading && reading.label, 40),
+              value,
+              how: str(reading && reading.how, 300),
+              confidence: placeholder ? 'low' : str(reading && reading.confidence, 10) || 'medium',
+            }
+          })
+          .filter((reading) => reading.value)
+      : []
     map[index] = {
       index,
-      description: str(item.description, 400),
-      suitable: item.suitable !== false && !!str(item.description, 400),
+      description,
+      suitable: item.suitable !== false && !!description,
+      readings,
     }
   })
   const result = []
   for (let i = 1; i <= count; i += 1) {
-    result.push(map[i] || { index: i, description: '', suitable: false })
+    result.push(map[i] || { index: i, description: '', suitable: false, readings: [] })
   }
   return result
 }
@@ -189,7 +252,7 @@ export function buildGenerationPrompt(text, name, figures = []) {
   ]
   if (usable.length) {
     lines.push(
-      '- figure（可选）：附图编号（1..' + figures.length + ' 的整数），只有确实需要看图的题才填；figureNote：图中看到什么、为什么必须看图；figureCaption：用附图清单里的 description，不要写文档图号。'
+      '- figure（可选）：附图编号（1..' + figures.length + ' 的整数），只有确实需要看图的题才填；figureNote：图中看到什么、为什么必须看图；figureEvidence：图中哪个刻度/游标/曲线/部件决定答案、怎么读；figureCaption：用附图清单里的 description，不要写文档图号。'
     )
   }
   lines.push('', '【硬性要求】', '1. 共 12 题：principle 3 题、phenomenon 3 题、reading 3 题、data 3 题。')
@@ -197,17 +260,29 @@ export function buildGenerationPrompt(text, name, figures = []) {
   lines.push('3. 所有内容必须来自讲义：公式、仪器、步骤、注意事项、数据处理方法。不能出现“以上都对”“以上都不对”这类选项。')
   if (usable.length) {
     lines.push(
-      '4. 本题附带 ' + figures.length + ' 张文档插图，必须先看附图清单，再决定怎么出题：',
-      ...figures.map(
-        (figure) =>
-          '   附图' + figure.index + '：' + (figure.description || '（无法识别）') +
+      '4. 本题附带 ' + figures.length + ' 张文档插图，必须先看附图清单，再按“读图 = 挖空单选”出题：'
+    )
+    figures.forEach((figure) => {
+      lines.push(
+        '   附图' + figure.index + '：' + (figure.description || '（无法识别）') +
           (figure.suitable === false ? '（不适合出题，不要使用）' : '')
-      ),
-      '   - 只能引用 suitable=true 的附图；figure 填附图编号，题干写“如附图k所示”；',
-      '   - 至少 2 道题必须使用附图；题目必须真正依赖图（读数、认器材、看曲线、看电路/光路），不能只是“如图”然后问文字；',
-      '   - figureCaption 用清单里的 description，不要写“图1/图5”这类文档图号，避免和附图编号混淆；',
-      '   - 先想清楚“从这张图能问什么”，再决定 dim：看图读数 → reading；看图认器材/操作 → phenomenon；看图理解原理/曲线 → principle 或 data；',
-      '   - 不要为了凑 reading 把纯文字题硬说成读图题；不依赖图片的题不要填 figure。'
+      )
+      ;(figure.readings || []).forEach((reading) => {
+        lines.push(
+          '      可读答案（禁止写进题干/hint，只能用于正确选项、figureEvidence、explain）：' +
+            (reading.label || '读数') + ' = ' + reading.value +
+            '（读法：' + (reading.how || '按图中刻度读出') + '；置信度：' + (reading.confidence || 'medium') + '）'
+        )
+      })
+    })
+    lines.push(
+      '   - reading 只出 single；正确选项必须等于附图清单中某个 reading 的 value，不能写换算值；',
+      '   - 题干和 hint 不得出现该 value；题干只问“读出/指出/判断”，不要写“读数为 X”；',
+      '   - 4 个选项 = 1 个正确读数 + 3 个常见误读（相邻刻度、游标错位、分度值/量程用错、度分换算错误）；',
+      '   - 每道 reading 必须填 figure 和 figureEvidence；figureCaption 用附图 description，不写文档图号；',
+      '   - 至少 2 道 reading 使用附图；confidence=low 的 reading 不要用；',
+      '   - 图中没有可读值时不要硬编数值；可以出“认器材/认部件”的 reading 单选，但必须给 figureEvidence；',
+      '   - 看图认器材/操作也可放 phenomenon；看图理解原理/曲线放 principle 或 data；不要为了凑 reading 硬塞。'
     )
   } else {
     lines.push(
@@ -263,8 +338,13 @@ export function parseGeneratedBank(raw, fallbackName, expId, images = []) {
   }
   if (images.length) {
     const withFigure = questions.filter((question) => question.figure).length
-    if (withFigure < 2) {
-      throw new Error('模型没有从文档图片出题（只有 ' + withFigure + ' 道带图），请重试')
+    const readingWithFigure = questions.filter(
+      (question) => question.dim === 'reading' && question.figure
+    ).length
+    if (withFigure < 2 || readingWithFigure < 2) {
+      throw new Error(
+        '模型没有按要求从文档图片出读图题（带图 ' + withFigure + ' 道，读图带图 ' + readingWithFigure + ' 道），请重试'
+      )
     }
   }
   return {

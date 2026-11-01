@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { extractText, extractImages, ExtractError } from './lib/extract.js'
 import { buildFigureAnalysisPrompt, parseFigureAnalysis, buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 
-const VERSION = '1.3.0'
+const VERSION = '1.4.0'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const ASSETS_PATH = '/physics-lab/assets/'
@@ -221,13 +221,14 @@ async function handleGenerate(ctx, req, res) {
 
     if (imageRefs.length) {
       try {
-        const analysisPrompt = buildFigureAnalysisPrompt(fallbackName, imageRefs.length)
+        const analysisPrompt = buildFigureAnalysisPrompt(clipped, fallbackName, imageRefs.length)
         const analysisRaw = await callModel(ctx, analysisPrompt, imageRefs, 2500)
         const analysis = parseFigureAnalysis(analysisRaw, imageRefs.length)
         imageFiles = imageFiles.map((file, index) =>
           Object.assign({}, file, {
             description: analysis[index].description,
             suitable: analysis[index].suitable,
+            readings: (analysis[index].readings || []).filter((reading) => reading.confidence !== 'low'),
           })
         )
         const usable = imageFiles.filter((file) => file.suitable !== false && file.description)
@@ -267,7 +268,8 @@ async function handleGenerate(ctx, req, res) {
       createdAt: Date.now(),
       questions: parsed.questions,
     }
-    sendJson(res, 200, { ok: true, bank })
+    const payload = { ok: true, bank }
+    sendJson(res, 200, payload)
   } catch (err) {
     const status = err && err.status ? err.status : err instanceof ExtractError ? 422 : 500
     const message = err && err.message ? err.message : '生成失败'

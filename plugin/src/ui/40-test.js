@@ -153,6 +153,7 @@ function QuestionCard(props) {
             String(q.explain || '').split('\n').map((line, i) => h('p', { key: i }, line))
           ),
           q.formula ? h('div', { className: 'pl-formula' }, q.formula) : null,
+          q.figureEvidence ? h('div', { className: 'pl-tip' }, h('b', null, '读图要点　'), q.figureEvidence) : null,
           q.tip ? h('div', { className: 'pl-tip' }, h('b', null, '易错点　'), q.tip) : null,
           h(
             'div',

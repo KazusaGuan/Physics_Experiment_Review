@@ -21,7 +21,7 @@ BANK.push(
   {
     id: 'michelson-m1',
     exp: 'michelson',
-    dim: 'reading',
+    dim: 'phenomenon',
     type: 'multi',
     stem: '关于迈克尔逊干涉仪的部件与读数，下列说法正确的是（多选）：',
     options: [
