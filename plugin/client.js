@@ -2668,7 +2668,7 @@ BANK.push(
 
 /* Experiment / dimension metadata and the quick-reference handbook. */
 
-const APP_VERSION = '1.4.2';
+const APP_VERSION = '1.4.3';
 
 const EXPS = [
   { id: 'bridge', name: '交直流电桥', badge: '桥', short: '电桥', accent: 'brand' },

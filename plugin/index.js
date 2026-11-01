@@ -7,7 +7,7 @@ import { extractText, extractImages, ExtractError } from './lib/extract.js'
 import { buildFigureAnalysisPrompt, parseFigureAnalysis, buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 import { buildFigureCheckPrompt, parseFigureCheck, readingsMatch } from './lib/prompt.js'
 
-const VERSION = '1.4.2'
+const VERSION = '1.4.3'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const ASSETS_PATH = '/physics-lab/assets/'
