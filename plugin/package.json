@@ -1,6 +1,6 @@
 {
   "name": "@local/physics-lab-sprint",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "description": "Interactive mock-exam trainer for university physics experiments",
@@ -13,6 +13,7 @@
   "files": [
     "index.js",
     "lib/*.js",
+    "assets/**",
     "client.js",
     "cordis.patch.yml",
     "locale/*.json",

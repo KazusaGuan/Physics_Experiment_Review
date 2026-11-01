@@ -21,7 +21,7 @@ BANK.push(
   {
     id: 'bridge-p2',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '平衡电桥测室温下的铜电阻：Ra = 1000 Ω，Rb = 5000 Ω，调节 Rn 使检流计指零，读得 Rn = 252.0 Ω。求 Rx（单位：Ω）。',
     answer: 50.4,
@@ -38,7 +38,7 @@ BANK.push(
   {
     id: 'bridge-p3',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '等臂非平衡电桥：电源电压 Us = 3.000 V，桥臂电阻 R = 120.0 Ω，电阻的变化量 ΔR = 0.50 Ω（满足 ΔR ≪ R）。求电桥开路输出电压 U0（单位：mV）。',
     answer: 3.13,
@@ -94,7 +94,7 @@ BANK.push(
   {
     id: 'bridge-p6',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: 'Cu50 铜电阻的 R0 = 50.0 Ω，温度系数 α = 4.28×10⁻³ ℃⁻¹。求 t = 50.0 ℃ 时的电阻 Rt（单位：Ω）。',
     answer: 60.7,
@@ -227,7 +227,7 @@ BANK.push(
   {
     id: 'bridge-u1',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: 'Rx = (Ra/Rb)·Rn，若 Ra、Rb、Rn 的相对不确定度均为 0.20%（彼此独立），只考虑 B 类不确定度，求 Rx 的相对不确定度（单位：%）。',
     answer: 0.35,
@@ -244,7 +244,7 @@ BANK.push(
   {
     id: 'bridge-u2',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '某次测量平均值 x̄ = 3.14159…，合成不确定度 u = 0.0234。按“不确定度取两位有效数字”的惯例，下列结果表示最规范的是：',
     options: [
@@ -263,7 +263,7 @@ BANK.push(
   {
     id: 'bridge-u3',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '用最小二乘法拟合 Cu50 的 R–t 直线，得到截距 R0 = 49.8 Ω、斜率 k = 0.213 Ω/℃。已知 R = R0(1 + αt)，求 α（单位：℃⁻¹，用科学计数法或小数表示均可）。',
     answer: 0.00428,
@@ -280,7 +280,7 @@ BANK.push(
   {
     id: 'bridge-u4',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理 Cu50 的 R–t 数据（R = R0 + R0αt）时，用最小二乘法拟合直线，相比逐差法或只取首末两点，最主要的优点是：',
     options: [

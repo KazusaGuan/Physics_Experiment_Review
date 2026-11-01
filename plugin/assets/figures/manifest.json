@@ -1,0 +1,378 @@
+[
+  {
+    "file": "bridge-wheatstone.png",
+    "w": 520,
+    "h": 471,
+    "bytes": 64808,
+    "source": "交直流电桥",
+    "n": 1
+  },
+  {
+    "file": "bridge-nonbalance.png",
+    "w": 319,
+    "h": 299,
+    "bytes": 38561,
+    "source": "交直流电桥",
+    "n": 2
+  },
+  {
+    "file": "bridge-ac.png",
+    "w": 415,
+    "h": 555,
+    "bytes": 18689,
+    "source": "交直流电桥",
+    "n": 3
+  },
+  {
+    "file": "bridge-wien.png",
+    "w": 252,
+    "h": 278,
+    "bytes": 48372,
+    "source": "交直流电桥",
+    "n": 4
+  },
+  {
+    "file": "bridge-panel.png",
+    "w": 800,
+    "h": 498,
+    "bytes": 478103,
+    "source": "交直流电桥",
+    "n": 5
+  },
+  {
+    "file": "bridge-heater.png",
+    "w": 1087,
+    "h": 431,
+    "bytes": 406211,
+    "source": "交直流电桥",
+    "n": 6
+  },
+  {
+    "file": "michelson-path.png",
+    "w": 376,
+    "h": 300,
+    "bytes": 18237,
+    "source": "迈克尔逊干涉",
+    "n": 1
+  },
+  {
+    "file": "michelson-path2.png",
+    "w": 375,
+    "h": 622,
+    "bytes": 50587,
+    "source": "迈克尔逊干涉",
+    "n": 2
+  },
+  {
+    "file": "michelson-mainscale.png",
+    "w": 565,
+    "h": 286,
+    "bytes": 181444,
+    "source": "迈克尔逊干涉",
+    "n": 10
+  },
+  {
+    "file": "michelson-window.png",
+    "w": 460,
+    "h": 257,
+    "bytes": 110836,
+    "source": "迈克尔逊干涉",
+    "n": 11
+  },
+  {
+    "file": "michelson-drum.png",
+    "w": 545,
+    "h": 650,
+    "bytes": 260833,
+    "source": "迈克尔逊干涉",
+    "n": 12
+  },
+  {
+    "file": "michelson-instrument.png",
+    "w": 639,
+    "h": 662,
+    "bytes": 499329,
+    "source": "迈克尔逊干涉",
+    "n": 15
+  },
+  {
+    "file": "michelson-instrument2.png",
+    "w": 369,
+    "h": 664,
+    "bytes": 295757,
+    "source": "迈克尔逊干涉",
+    "n": 16
+  },
+  {
+    "file": "polar-states.png",
+    "w": 1200,
+    "h": 346,
+    "bytes": 14701,
+    "source": "偏振光与双折射",
+    "n": 2
+  },
+  {
+    "file": "polar-calcite.png",
+    "w": 1045,
+    "h": 349,
+    "bytes": 5426,
+    "source": "偏振光与双折射",
+    "n": 4
+  },
+  {
+    "file": "polar-calcite-photo.png",
+    "w": 469,
+    "h": 319,
+    "bytes": 89684,
+    "source": "偏振光与双折射",
+    "n": 5
+  },
+  {
+    "file": "polar-malus.png",
+    "w": 555,
+    "h": 256,
+    "bytes": 19041,
+    "source": "偏振光与双折射",
+    "n": 6
+  },
+  {
+    "file": "polar-waveplate.png",
+    "w": 830,
+    "h": 369,
+    "bytes": 63867,
+    "source": "偏振光与双折射",
+    "n": 7
+  },
+  {
+    "file": "polar-path.png",
+    "w": 1047,
+    "h": 495,
+    "bytes": 167808,
+    "source": "偏振光与双折射",
+    "n": 8
+  },
+  {
+    "file": "polar-setup.png",
+    "w": 813,
+    "h": 507,
+    "bytes": 448019,
+    "source": "偏振光与双折射",
+    "n": 9
+  },
+  {
+    "file": "polar-dial.png",
+    "w": 871,
+    "h": 804,
+    "bytes": 544271,
+    "source": "偏振光与双折射",
+    "n": 13
+  },
+  {
+    "file": "polar-apparatus.png",
+    "w": 865,
+    "h": 442,
+    "bytes": 201444,
+    "source": "偏振光与双折射",
+    "n": 14
+  },
+  {
+    "file": "nmr-levels.png",
+    "w": 292,
+    "h": 117,
+    "bytes": 2556,
+    "source": "核磁共振实验",
+    "n": 1
+  },
+  {
+    "file": "nmr-sweep.png",
+    "w": 379,
+    "h": 278,
+    "bytes": 3019,
+    "source": "核磁共振实验",
+    "n": 2
+  },
+  {
+    "file": "nmr-absorption.png",
+    "w": 763,
+    "h": 259,
+    "bytes": 21455,
+    "source": "核磁共振实验",
+    "n": 3
+  },
+  {
+    "file": "nmr-instrument.png",
+    "w": 1200,
+    "h": 900,
+    "bytes": 342743,
+    "source": "核磁共振实验",
+    "n": 4
+  },
+  {
+    "file": "nmr-panel.png",
+    "w": 1026,
+    "h": 433,
+    "bytes": 186400,
+    "source": "核磁共振实验",
+    "n": 5
+  },
+  {
+    "file": "nmr-probe.png",
+    "w": 648,
+    "h": 443,
+    "bytes": 122763,
+    "source": "核磁共振实验",
+    "n": 7
+  },
+  {
+    "file": "nmr-wiring.png",
+    "w": 909,
+    "h": 702,
+    "bytes": 170228,
+    "source": "核磁共振实验",
+    "n": 8
+  },
+  {
+    "file": "nmr-screen10.png",
+    "w": 601,
+    "h": 381,
+    "bytes": 238423,
+    "source": "核磁共振实验",
+    "n": 9
+  },
+  {
+    "file": "nmr-screen20.png",
+    "w": 568,
+    "h": 381,
+    "bytes": 247426,
+    "source": "核磁共振实验",
+    "n": 10
+  },
+  {
+    "file": "nmr-precession.png",
+    "w": 189,
+    "h": 183,
+    "bytes": 1754,
+    "source": "核磁共振实验",
+    "n": 14
+  },
+  {
+    "file": "nmr-precession2.png",
+    "w": 402,
+    "h": 457,
+    "bytes": 16733,
+    "source": "核磁共振实验",
+    "n": 16
+  },
+  {
+    "file": "solar-setup.png",
+    "w": 605,
+    "h": 274,
+    "bytes": 142899,
+    "source": "多功能太阳能电池",
+    "n": 1
+  },
+  {
+    "file": "solar-panel.png",
+    "w": 489,
+    "h": 306,
+    "bytes": 16947,
+    "source": "多功能太阳能电池",
+    "n": 2
+  },
+  {
+    "file": "solar-iv.png",
+    "w": 537,
+    "h": 276,
+    "bytes": 16426,
+    "source": "多功能太阳能电池",
+    "n": 3
+  },
+  {
+    "file": "solar-cap-charge.png",
+    "w": 332,
+    "h": 161,
+    "bytes": 9408,
+    "source": "多功能太阳能电池",
+    "n": 4
+  },
+  {
+    "file": "solar-direct.png",
+    "w": 440,
+    "h": 180,
+    "bytes": 12150,
+    "source": "多功能太阳能电池",
+    "n": 5
+  },
+  {
+    "file": "solar-dcdc.png",
+    "w": 465,
+    "h": 177,
+    "bytes": 16730,
+    "source": "多功能太阳能电池",
+    "n": 6
+  },
+  {
+    "file": "sound-setup.png",
+    "w": 847,
+    "h": 337,
+    "bytes": 32714,
+    "source": "声速与光速测量",
+    "n": 1
+  },
+  {
+    "file": "sound-lissajous.png",
+    "w": 1200,
+    "h": 196,
+    "bytes": 96617,
+    "source": "声速与光速测量",
+    "n": 2
+  },
+  {
+    "file": "sound-pulse.png",
+    "w": 443,
+    "h": 206,
+    "bytes": 19648,
+    "source": "声速与光速测量",
+    "n": 3
+  },
+  {
+    "file": "sound-source.png",
+    "w": 237,
+    "h": 197,
+    "bytes": 46097,
+    "source": "声速与光速测量",
+    "n": 4
+  },
+  {
+    "file": "sound-apparatus.png",
+    "w": 788,
+    "h": 289,
+    "bytes": 167407,
+    "source": "声速与光速测量",
+    "n": 5
+  },
+  {
+    "file": "light-principle.png",
+    "w": 559,
+    "h": 283,
+    "bytes": 9624,
+    "source": "声速与光速测量",
+    "n": 6
+  },
+  {
+    "file": "light-apparatus.png",
+    "w": 560,
+    "h": 208,
+    "bytes": 65847,
+    "source": "声速与光速测量",
+    "n": 7
+  },
+  {
+    "file": "light-lissajous.png",
+    "w": 512,
+    "h": 307,
+    "bytes": 17576,
+    "source": "声速与光速测量",
+    "n": 8
+  }
+]

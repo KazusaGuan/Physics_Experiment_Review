@@ -77,12 +77,20 @@ function isCustomBank(value) {
   );
 }
 
+function normalizeCustomBank(bank) {
+  return Object.assign({}, bank, {
+    questions: (bank.questions || []).map((q) =>
+      q && q.dim === 'uncertainty' ? Object.assign({}, q, { dim: 'data' }) : q
+    ),
+  });
+}
+
 function loadCustomBanks() {
   try {
     const raw = window.localStorage.getItem(CUSTOM_KEY);
     if (!raw) return [];
     const list = JSON.parse(raw);
-    return Array.isArray(list) ? list.filter(isCustomBank) : [];
+    return Array.isArray(list) ? list.filter(isCustomBank).map(normalizeCustomBank) : [];
   } catch (err) {
     return [];
   }
@@ -97,7 +105,7 @@ function saveCustomBanks(list) {
 }
 
 function setCustomBanks(list) {
-  CUSTOM_BANKS = Array.isArray(list) ? list.filter(isCustomBank) : [];
+  CUSTOM_BANKS = Array.isArray(list) ? list.filter(isCustomBank).map(normalizeCustomBank) : [];
 }
 
 function getCustomBanks() {

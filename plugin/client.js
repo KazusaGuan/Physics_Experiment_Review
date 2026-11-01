@@ -30,7 +30,7 @@ BANK.push(
   {
     id: 'bridge-p2',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '平衡电桥测室温下的铜电阻：Ra = 1000 Ω，Rb = 5000 Ω，调节 Rn 使检流计指零，读得 Rn = 252.0 Ω。求 Rx（单位：Ω）。',
     answer: 50.4,
@@ -47,7 +47,7 @@ BANK.push(
   {
     id: 'bridge-p3',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '等臂非平衡电桥：电源电压 Us = 3.000 V，桥臂电阻 R = 120.0 Ω，电阻的变化量 ΔR = 0.50 Ω（满足 ΔR ≪ R）。求电桥开路输出电压 U0（单位：mV）。',
     answer: 3.13,
@@ -103,7 +103,7 @@ BANK.push(
   {
     id: 'bridge-p6',
     exp: 'bridge',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: 'Cu50 铜电阻的 R0 = 50.0 Ω，温度系数 α = 4.28×10⁻³ ℃⁻¹。求 t = 50.0 ℃ 时的电阻 Rt（单位：Ω）。',
     answer: 60.7,
@@ -236,7 +236,7 @@ BANK.push(
   {
     id: 'bridge-u1',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: 'Rx = (Ra/Rb)·Rn，若 Ra、Rb、Rn 的相对不确定度均为 0.20%（彼此独立），只考虑 B 类不确定度，求 Rx 的相对不确定度（单位：%）。',
     answer: 0.35,
@@ -253,7 +253,7 @@ BANK.push(
   {
     id: 'bridge-u2',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '某次测量平均值 x̄ = 3.14159…，合成不确定度 u = 0.0234。按“不确定度取两位有效数字”的惯例，下列结果表示最规范的是：',
     options: [
@@ -272,7 +272,7 @@ BANK.push(
   {
     id: 'bridge-u3',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '用最小二乘法拟合 Cu50 的 R–t 直线，得到截距 R0 = 49.8 Ω、斜率 k = 0.213 Ω/℃。已知 R = R0(1 + αt)，求 α（单位：℃⁻¹，用科学计数法或小数表示均可）。',
     answer: 0.00428,
@@ -289,7 +289,7 @@ BANK.push(
   {
     id: 'bridge-u4',
     exp: 'bridge',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理 Cu50 的 R–t 数据（R = R0 + R0αt）时，用最小二乘法拟合直线，相比逐差法或只取首末两点，最主要的优点是：',
     options: [
@@ -311,7 +311,7 @@ BANK.push(
   {
     id: 'michelson-p1',
     exp: 'michelson',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '测量 He–Ne 激光波长：移动反射镜使圆环“涌出”50 个，测得镜面移动距离 Δd = 0.01580 mm。求激光波长 λ（单位：nm）。',
     answer: 632,
@@ -404,7 +404,7 @@ BANK.push(
   {
     id: 'michelson-p6',
     exp: 'michelson',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '设 M1 与虚像之间的距离 d = 0.1000 mm，入射光波长 λ = 632.8 nm，圆心处（i = 0）的干涉级次 k 约为多少？（取整数）',
     answer: 316,
@@ -556,7 +556,7 @@ BANK.push(
   {
     id: 'michelson-u1',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '测得移动镜位置 d1…d10（每涌出 50 环读一次，共 10 个读数），用逐差法处理时应：',
     options: [
@@ -575,7 +575,7 @@ BANK.push(
   {
     id: 'michelson-u2',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: 'λ = 2Δd/N，其中环数 N = 50 为准确计数（无误差），Δd = 0.01580 mm，其测量不确定度 u(Δd) = 0.00010 mm。求 λ 的相对不确定度（单位：%）。',
     answer: 0.63,
@@ -592,7 +592,7 @@ BANK.push(
   {
     id: 'michelson-u3',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '测得 λ = 632.8 nm，其不确定度 U = 4 nm。按“不确定度取 1 位有效数字”的规范，结果应写成：',
     options: [
@@ -614,7 +614,7 @@ BANK.push(
   {
     id: 'polar-p1',
     exp: 'polar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '起偏器 P1 与检偏器 P2 的透光轴夹角 θ = 60°。若入射到 P2 的线偏振光强 I0 = 400 μW，求透过 P2 的光强 I（单位：μW）。',
     answer: 100,
@@ -707,7 +707,7 @@ BANK.push(
   {
     id: 'polar-p6',
     exp: 'polar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '用石英制作对 λ = 589.3 nm 的 λ/4 波片，已知 |no − ne| = 0.0091。求波片的最小厚度 d（单位：μm）。',
     answer: 16.2,
@@ -859,7 +859,7 @@ BANK.push(
   {
     id: 'polar-u1',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '验证马吕斯定律 I = I0cos²θ 时，光强对角度的微小变化在哪个 θ 附近最敏感？（填角度，单位：°）',
     answer: 45,
@@ -876,7 +876,7 @@ BANK.push(
   {
     id: 'polar-u2',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '线偏振光经 λ/4 波片（θ = 30°）后成为椭圆偏振光，再通过检偏器。求透射光强的最大值与最小值之比 Imax/Imin。',
     answer: 3,
@@ -893,7 +893,7 @@ BANK.push(
   {
     id: 'polar-u3',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '偏振片刻度盘的读数为 271°28′。若以“度”为单位并保留两位小数，应记为多少度？',
     answer: 271.47,
@@ -910,7 +910,7 @@ BANK.push(
   {
     id: 'polar-u4',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '验证马吕斯定律时，用 I–cos²θ 作图（而不是 I–θ 作图）的主要好处是：',
     options: [
@@ -932,7 +932,7 @@ BANK.push(
   {
     id: 'nmr-p1',
     exp: 'nmr',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '1H 核的 g = 5.5857，μN/h = 7.6225914 MHz/T。当磁场 B = 0.5000 T 时，其共振频率 ν 为多少 MHz？',
     answer: 21.29,
@@ -1160,7 +1160,7 @@ BANK.push(
   {
     id: 'nmr-u1',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '由多组 (ν, B0) 数据作 ν–B0 图，用最小二乘法求得斜率 k = 42.58 MHz/T。已知 μN/h = 7.6225914 MHz/T，求 1H 的 g 因子。',
     answer: 5.586,
@@ -1177,7 +1177,7 @@ BANK.push(
   {
     id: 'nmr-u2',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '某次测得 1H 的 g = 5.59，公认值为 5.5857。求相对误差（单位：%）。',
     answer: 0.08,
@@ -1194,7 +1194,7 @@ BANK.push(
   {
     id: 'nmr-u3',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理 ν–B0 数据求 g 因子时，下列做法最合理的是：',
     options: [
@@ -1235,7 +1235,7 @@ BANK.push(
   {
     id: 'solar-p2',
     exp: 'solar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '某次测量中太阳能电池输出电压 U = 10.8 V、电流 I = 68.0 mA，求输出功率 P（单位：mW）。',
     answer: 734,
@@ -1309,7 +1309,7 @@ BANK.push(
   {
     id: 'solar-p6',
     exp: 'solar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '超级电容 C = 2.35 F，充电至 U = 11.0 V，求储存的能量 E（单位：J）。',
     answer: 142,
@@ -1499,7 +1499,7 @@ BANK.push(
   {
     id: 'solar-u1',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '测得 U = 10.80 V、u(U) = 0.02 V；I = 68.0 mA、u(I) = 0.5 mA。P = UI，求 P 的相对不确定度（单位：%）。',
     answer: 0.76,
@@ -1516,7 +1516,7 @@ BANK.push(
   {
     id: 'solar-u2',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: 'U = 10.80 V（4 位有效数字），I = 68.0 mA（3 位有效数字），按有效数字运算规则，P = UI 应保留几位有效数字？',
     options: [
@@ -1535,7 +1535,7 @@ BANK.push(
   {
     id: 'solar-u3',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理太阳能电池 I–V 数据时，还要作 P–U 曲线，其主要目的是：',
     options: [
@@ -1554,7 +1554,7 @@ BANK.push(
   {
     id: 'solar-u4',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '超级电容储能 E = ½CU²。若 C 的相对不确定度为 2.0%，U 的相对不确定度为 1.0%，求 E 的相对不确定度（单位：%）。',
     answer: 2.8,
@@ -1570,9 +1570,1115 @@ BANK.push(
   }
 );
 
+BANK.push(
+  /* ---------- 交直流电桥：读图与仪器 ---------- */
+  {
+    id: 'bridge-rd1',
+    exp: 'bridge',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为惠斯通电桥，R1、R2 为比率臂，R3 为标准电阻，R4 为待测电阻 Rx，PA 为检流计。当 PA 指零时，下列关系正确的是：',
+    figure: 'bridge-wheatstone.png',
+    figureAlt: '惠斯通电桥电路图',
+    figureCaption: '图 1 惠斯通电桥',
+    options: ['R1·R3 = R2·R4', 'R1·R2 = R3·R4', 'R1·R4 = R2·R3', 'R1 + R3 = R2 + R4'],
+    answer: 0,
+    explain:
+      '平衡时 B、D 两点等电位，两条支路的分压比相等：R1/R2 = R4/R3，交叉相乘得 R1·R3 = R2·R4。\n把 R4 看作待测电阻 Rx，就得到 Rx = (R1/R2)·R3，即“比率 × 标准电阻”。',
+    formula: 'R1/R2 = R4/R3  ⇔  R1·R3 = R2·R4',
+    tip: '按图中位置，R3 在 D-C、R4 在 B-C；不要只记“对角相乘”而套错臂。',
+    tags: ['惠斯通电桥', '平衡条件', '电路图'],
+  },
+  {
+    id: 'bridge-rd2',
+    exp: 'bridge',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为非平衡电桥，负载电阻 Rg 接在 B、D 之间。当 R4 随温度变化时，电桥的输出电压 U0 取自：',
+    figure: 'bridge-nonbalance.png',
+    figureAlt: '非平衡电桥电路图',
+    figureCaption: '图 2 非平衡电桥',
+    options: ['B、D 两点之间', 'A、C 两点之间', '电源两端', 'Rg 中的电流方向'],
+    answer: 0,
+    explain:
+      '非平衡电桥不要求检流计指零，而是直接测量 B、D 两点之间的电压差（或流过 Rg 的电流）。\nR4 变化使电桥失去平衡，U0 随 ΔR 改变，再由 U0 = (Us/4)(ΔR/R) 等公式反推电阻变化。',
+    formula: 'U0 = U_B − U_D',
+    tip: 'A、C 是电源端；输出端是 B、D。',
+    tags: ['非平衡电桥', '输出端', '电路图'],
+  },
+  {
+    id: 'bridge-rd3',
+    exp: 'bridge',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为 FB306A 交直流电桥实验仪面板，中央标有 G 的部件是：',
+    figure: 'bridge-panel.png',
+    figureAlt: 'FB306A 交直流电桥实验仪面板',
+    figureCaption: '图 8 电桥实验仪面板',
+    options: ['交流指零仪（检流计）', '标准电容', '标准电感', '直流电源'],
+    answer: 0,
+    explain:
+      'G 是电桥的平衡指示器：直流电桥用检流计，交流电桥用交流指零仪。\n调节桥臂使 G 的示数最小（理想为零），就认为电桥达到平衡。',
+    formula: '平衡判据：G 指零',
+    tip: 'G 不是电源，也不是标准元件；它的灵敏度需要先低后高。',
+    tags: ['仪器识别', '指零仪', '面板'],
+  },
+  {
+    id: 'bridge-rd4',
+    exp: 'bridge',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为加热控温装置。温控仪面板上 PV 显示的是：',
+    figure: 'bridge-heater.png',
+    figureAlt: '加热炉与温度控制仪',
+    figureCaption: '图 9 加热装置及温度控制仪',
+    options: ['加热炉当前温度', '设定温度', '加热电流', '风扇转速'],
+    answer: 0,
+    explain:
+      '温控仪中 PV 是测量值（当前炉温），SV 是设定值（目标温度）。\n当 PV 达到 SV 时自动切断加热，低于 SV 时再通电，从而把温度稳定在设定值附近。',
+    formula: 'PV = 当前温度，SV = 设定温度',
+    tip: '把 PV 当成设定温度是常见误读。',
+    tags: ['温控仪', 'PV/SV', '仪器读数'],
+  },
+
+  /* ---------- 迈克尔逊：读图与仪器 ---------- */
+  {
+    id: 'michelson-rd1',
+    exp: 'michelson',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为迈克尔逊干涉仪光路，G1、G2 分别是：',
+    figure: 'michelson-path.png',
+    figureAlt: '迈克尔逊干涉仪光路图',
+    figureCaption: '图 2 迈克尔逊干涉仪光路',
+    options: ['分光板、补偿板', '补偿板、分光板', '移动镜、固定镜', '扩束镜、观察屏'],
+    answer: 0,
+    explain:
+      'G1 的第二面镀半透膜，把入射光分成两束，是分光板；G2 与 G1 同材质、同厚度且平行，使两束光都三次通过玻璃，是补偿板。\nM1 是移动反射镜，M2 是固定反射镜。',
+    formula: 'G1 分光，G2 补偿玻璃光程',
+    tip: '不要把 G2 当成第二个分光板：它不镀半透膜，只补偿色散。',
+    tags: ['光路图', '分光板', '补偿板'],
+  },
+  {
+    id: 'michelson-rd2',
+    exp: 'michelson',
+    dim: 'reading',
+    type: 'numeric',
+    stem: '图示为干涉仪读数窗，转一圈为 1 mm。图中示值为多少 mm？',
+    figure: 'michelson-window.png',
+    figureAlt: '迈克尔逊干涉仪读数窗',
+    figureCaption: '图 读数窗（转一圈 1 mm）',
+    answer: 0.5,
+    tol: 0.02,
+    unit: 'mm',
+    sigfig: 2,
+    hint: '读数窗最小分度 0.01 mm，保留 2 位有效数字',
+    explain:
+      '读数窗的指针正对 0.5 刻度，所以示值为 0.5 mm。\n移动镜位置 = 主标尺（1 mm）+ 读数窗（0.01 mm）+ 微动鼓轮（0.0001 mm）。',
+    formula: '位置 = 主标尺 + 读数窗 + 鼓轮',
+    tip: '读数窗转一圈才是 1 mm，不能把它当成 1 mm 的整数刻度。',
+    tags: ['读数窗', '仪器读数'],
+  },
+  {
+    id: 'michelson-rd3',
+    exp: 'michelson',
+    dim: 'reading',
+    type: 'numeric',
+    stem: '图示为微动鼓轮，分度值为 0.0001 mm，图中示值约为 4.8 格。对应的位移是多少 mm？',
+    figure: 'michelson-drum.png',
+    figureAlt: '迈克尔逊干涉仪微动鼓轮',
+    figureCaption: '图 微动鼓轮（每格 0.0001 mm）',
+    answer: 0.00048,
+    tol: 0.05,
+    unit: 'mm',
+    sigfig: 2,
+    hint: '4.8 × 0.0001 mm',
+    explain:
+      '鼓轮每转一圈 0.01 mm，共 100 格，所以每格 0.0001 mm。\n图中示值约 4.8 格，对应 4.8 × 0.0001 mm = 0.00048 mm。',
+    formula: '鼓轮读数 = 格数 × 0.0001 mm',
+    tip: '鼓轮一圈是 0.01 mm，不是 0.0001 mm；0.0001 mm 是每格。',
+    tags: ['鼓轮', '仪器读数', '空程差'],
+  },
+  {
+    id: 'michelson-rd4',
+    exp: 'michelson',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为迈克尔逊干涉仪。转动粗调手轮或微动鼓轮时，沿导轨移动的反射镜是：',
+    figure: 'michelson-instrument.png',
+    figureAlt: '迈克尔逊干涉仪实物',
+    figureCaption: '图 1 迈克尔逊干涉仪',
+    options: ['M1', 'M2', 'G1', 'G2'],
+    answer: 0,
+    explain:
+      'M1 装在可沿导轨移动的拖板上，由丝杆带动，是移动反射镜；M2 固定在仪器上。\nG1、G2 是分光板和补偿板，不随手轮移动。',
+    formula: 'M1 移动，M2 固定',
+    tip: '调节手轮改变的是 M1 与虚像之间的距离 d。',
+    tags: ['仪器识别', '移动镜'],
+  },
+
+  /* ---------- 偏振：读图与仪器 ---------- */
+  {
+    id: 'polar-rd1',
+    exp: 'polar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为五种偏振态的光矢量分布。哪种偏振态旋转检偏器时光强不变，且经过 λ/4 波片后可能变为线偏振光？',
+    figure: 'polar-states.png',
+    figureAlt: '五种偏振态的光矢量分布',
+    figureCaption: '图 1 各偏振态的光矢量分布',
+    options: ['圆偏振光', '自然光', '线偏振光', '部分偏振光'],
+    answer: 0,
+    explain:
+      '圆偏振光的光矢量端点轨迹是圆，各方向光强相同，旋转检偏器时透射光强不变；再经 λ/4 波片可合成为线偏振光。\n自然光旋转检偏器也光强不变，但它经过 λ/4 波片后仍是自然光，不能变成线偏振。',
+    formula: '圆偏振 → λ/4 → 线偏振',
+    tip: '“光强不变”既是自然光也是圆偏振光，要结合 λ/4 后的变化区分。',
+    tags: ['偏振态', '圆偏振', '波片'],
+  },
+  {
+    id: 'polar-rd2',
+    exp: 'polar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为一束光正入射冰洲石后分成 o 光和 e 光。关于 o 光，下列说法正确的是：',
+    figure: 'polar-calcite.png',
+    figureAlt: '冰洲石的双折射',
+    figureCaption: '图 4 冰洲石的双折射现象',
+    options: [
+      '遵守折射定律，振动方向垂直于主平面',
+      '不遵守折射定律，振动方向平行主平面',
+      '与 e 光在晶体中的传播速度相同',
+      '不是线偏振光',
+    ],
+    answer: 0,
+    explain:
+      'o 光遵守通常的折射定律，电矢量垂直于 o 光的主平面；e 光一般不遵守折射定律，电矢量平行于 e 光的主平面。\n两束光都是线偏振光，振动方向近似垂直；只有在光轴方向上两者速度才相同。',
+    formula: 'o 光：垂直主平面；e 光：平行主平面',
+    tip: '“不遵守折射定律”的是 e 光，不是 o 光。',
+    tags: ['双折射', 'o 光', '主平面'],
+  },
+  {
+    id: 'polar-rd3',
+    exp: 'polar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示 P1 为起偏器、P2 为检偏器，θ 为两透光轴夹角。透过 P2 的光强 I 为：',
+    figure: 'polar-malus.png',
+    figureAlt: '线偏振光通过检偏器',
+    figureCaption: '图 5 线偏振光通过检偏器',
+    options: ['I = I0·cos²θ', 'I = I0·cosθ', 'I = I0·sin²θ', 'I = I0'],
+    answer: 0,
+    explain:
+      '马吕斯定律：线偏振光通过检偏器后，光强与两透光轴夹角余弦的平方成正比。\nθ = 0° 时最强，θ = 90° 时消光。',
+    formula: 'I = I0·cos²θ',
+    tip: '是 cos²θ，不是 cosθ；角度与余弦的平方不要混。',
+    tags: ['马吕斯定律', '检偏器'],
+  },
+  {
+    id: 'polar-rd4',
+    exp: 'polar',
+    dim: 'reading',
+    type: 'numeric',
+    stem: '图示为偏振片刻度盘，读数为 271°28′。以度为单位应记为多少度？（保留两位小数）',
+    figure: 'polar-dial.png',
+    figureAlt: '偏振片刻度盘',
+    figureCaption: '图 12 偏振片和波片上的刻度盘',
+    answer: 271.47,
+    tol: 0.005,
+    unit: '°',
+    sigfig: 5,
+    hint: '28′ = 28/60 度',
+    explain:
+      '28′ = 28/60° ≈ 0.4667°，所以 271°28′ = 271.47°。\n记录角度时要统一单位，避免在 cos²θ 计算中引入额外误差。',
+    formula: '271°28′ = 271 + 28/60 = 271.47°',
+    tip: '不要把 28′ 直接写成 0.28°。',
+    tags: ['刻度盘', '角度读数', '单位换算'],
+  },
+
+  /* ---------- 核磁共振：读图与仪器 ---------- */
+  {
+    id: 'nmr-rd1',
+    exp: 'nmr',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为 1H 核在 B = 0 与 B = B0 时的能级。能级差 ΔE 为：',
+    figure: 'nmr-levels.png',
+    figureAlt: '1H 核在磁场中的能级分裂',
+    figureCaption: '图 1 施加磁场前后的能级',
+    options: ['g·μN·B0', 'μN·B0', '2g·μN·B0', 'g·μN·B0/2'],
+    answer: 0,
+    explain:
+      '1H 的 I = 1/2，在磁场中分裂为 m = +1/2 与 −1/2 两个能级，能量差 ΔE = gμN B0。\n共振时 hν = ΔE，所以 ν = (gμN/h)B0。',
+    formula: 'ΔE = g·μN·B0',
+    tip: 'g 是无量纲因子，μN 是核磁子；不要漏掉 g。',
+    tags: ['能级分裂', 'ΔE', '读图'],
+  },
+  {
+    id: 'nmr-rd2',
+    exp: 'nmr',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为扫场法中的总磁场与共振信号。共振信号在示波器上均匀排列、间隔 10 ms 时，2πν/γ 等于：',
+    figure: 'nmr-sweep.png',
+    figureAlt: '扫场法与共振信号',
+    figureCaption: '图 2 扫场法观察共振信号',
+    options: ['B0', 'B0 + B′', 'B0 − B′', '0'],
+    answer: 0,
+    explain:
+      '总磁场 B = B0 + B′cos(2πft)，每个周期两次经过共振值。\n当 2πν/γ = B0 时，共振发生在交变磁场过零时刻，两次信号相隔半个周期 10 ms；等于 B0 ± B′ 时间隔为 20 ms。',
+    formula: '间隔 10 ms ⇔ 2πν/γ = B0',
+    tip: '10 ms 与 20 ms 是判断共振点位置的关键。',
+    tags: ['扫场法', '共振信号', '读图'],
+  },
+  {
+    id: 'nmr-rd3',
+    exp: 'nmr',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为示波器上的核磁共振信号（时间轴 2.00 ms/div）。相邻信号间隔约 10 ms，说明：',
+    figure: 'nmr-screen10.png',
+    figureAlt: '示波器上的核磁共振信号',
+    figureCaption: '图 8 水样品的共振信号',
+    options: [
+      '2πν/γ = B0，频率计读数对应 B0',
+      '2πν/γ = B0 + B′',
+      '扫场幅度过大',
+      '样品已经饱和',
+    ],
+    answer: 0,
+    explain:
+      '信号均匀排列且间隔约 10 ms，说明共振发生在交变磁场过零时刻，即 2πν/γ = B0。\n此时频率计的读数才是与 B0 对应的共振频率，可用于计算 g 和 γ。',
+    formula: '均匀 + 10 ms → 2πν/γ = B0',
+    tip: '如果间隔是 20 ms，对应 B0 ± B′，不能用于测 B0。',
+    tags: ['示波器', '10 ms', '读图'],
+  },
+  {
+    id: 'nmr-rd4',
+    exp: 'nmr',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为核磁共振测试平台。用特斯拉计测量 B0 时，探头应：',
+    figure: 'nmr-probe.png',
+    figureAlt: '核磁共振测试平台',
+    figureCaption: '图 6 测试平台与探头',
+    options: [
+      '垂直于磁场，缓慢转动找读数最大处',
+      '平行于磁场，找读数最小处',
+      '放在样品盒内测量',
+      '紧贴电磁铁外壳任意位置',
+    ],
+    answer: 0,
+    explain:
+      '特斯拉计测量的是探头法向的磁感应强度。应先在无磁场处调零，再让探头敏感面垂直于磁场方向，缓慢转动找到读数最大处。\n读数最大说明探头法向与 B 平行，此时才是该点的 B0。',
+    formula: '无磁场调零 → 探头垂直于 B → 取最大读数',
+    tip: '“读数最大处”对应探头法向与磁场平行，不是最小处。',
+    tags: ['特斯拉计', 'B0 测量', '仪器'],
+  },
+
+  /* ---------- 太阳能：读图与仪器 ---------- */
+  {
+    id: 'solar-rd1',
+    exp: 'solar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为离网型太阳能电源系统。控制器的主要作用是：',
+    figure: 'solar-setup.png',
+    figureAlt: '离网型太阳能电源系统',
+    figureCaption: '图 1 太阳能光伏电源系统',
+    options: [
+      '管理光伏系统能量，防止储能装置过充过放',
+      '把直流电变成交流电',
+      '把交流电变成直流电',
+      '提高电池的开路电压',
+    ],
+    answer: 0,
+    explain:
+      '控制器管理光伏系统的能量流向：电池输出功率大于负载时向储能装置充电，小于负载时由储能装置补充。\n它还防止蓄电池过充、过放，保护整个系统。逆变器才负责直流变交流，DC-DC 负责电压匹配。',
+    formula: '控制器：充放电管理 + 保护',
+    tip: '不要把控制器和逆变器的功能混淆。',
+    tags: ['系统组成', '控制器', '读图'],
+  },
+  {
+    id: 'solar-rd2',
+    exp: 'solar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为太阳能电池组件结构，电池片旁并联的二极管（虚线）的作用是：',
+    figure: 'solar-panel.png',
+    figureAlt: '太阳能电池组件结构',
+    figureCaption: '图 4 太阳能电池结构',
+    options: [
+      '部分遮挡时让电流绕过被遮挡电池，防止热斑',
+      '提高电池的开路电压',
+      '储存电能',
+      '把直流电变成交流电',
+    ],
+    answer: 0,
+    explain:
+      '被遮挡的电池片会从电源变成负载，消耗其它电池的能量并发热，形成热斑。\n并联旁路二极管后，被遮挡部分的电流可以从二极管绕过，其它电池仍能正常工作，从而保护组件。',
+    formula: '遮挡 → 旁路二极管导通 → 电流绕过',
+    tip: '旁路二极管防的是热斑，不是提高效率或电压。',
+    tags: ['旁路二极管', '热斑', '读图'],
+  },
+  {
+    id: 'solar-rd3',
+    exp: 'solar',
+    dim: 'reading',
+    type: 'numeric',
+    stem: '图示为太阳能电池的 I–V 曲线。从图中读出短路电流约为多少 mA？',
+    figure: 'solar-iv.png',
+    figureAlt: '太阳能电池 I–V 曲线',
+    figureCaption: '图 3 太阳能电池伏安特性曲线',
+    answer: 58,
+    tol: 0.08,
+    unit: 'mA',
+    sigfig: 2,
+    hint: '曲线与纵轴的交点；读 2 位有效数字',
+    explain:
+      '短路电流是 U = 0 时的电流，即曲线与纵轴的交点，约 58 mA。\n开路电压是 I = 0 时的电压，约 12.8 V；膝点附近约 11 V、55 mA，是最大功率点附近。',
+    formula: 'Isc：U = 0 时的 I；Uoc：I = 0 时的 U',
+    tip: '不要把膝点的电流当成短路电流。',
+    tags: ['I–V 曲线', '短路电流', '读图'],
+  },
+  {
+    id: 'solar-rd4',
+    exp: 'solar',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为太阳能电池经 DC-DC 给超级电容充电。与直接充电相比，DC-DC 的主要作用是：',
+    figure: 'solar-dcdc.png',
+    figureAlt: 'DC-DC 充电电路',
+    figureCaption: '图 5c 加 DC-DC 后充电',
+    options: [
+      '变换电压，使电池工作在最大功率点附近',
+      '把直流电变成交流电',
+      '储存电能',
+      '提高光照强度',
+    ],
+    answer: 0,
+    explain:
+      'DC-DC 改变负载端电压，也就改变了折算到电源端的等效负载电阻。\n把输入电压调到最大功率点对应的电压，就能让电池在最大功率附近输出；它本身不储能，也不负责逆变。',
+    formula: 'DC-DC：电压匹配 + 最大功率跟踪',
+    tip: 'DC-DC 不是逆变器，也不是储能装置。',
+    tags: ['DC-DC', '最大功率点', '读图'],
+  }
+);
+
+BANK.push(
+  /* ---------- 声速与光速测量：原理 ---------- */
+  {
+    id: 'sound-p1',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '关于压电换能器，下列说法正确的是：',
+    options: [
+      '发射换能器利用逆压电效应（电→声），接收换能器利用正压电效应（声→电）',
+      '发射换能器利用正压电效应，接收换能器利用逆压电效应',
+      '发射和接收都利用正压电效应',
+      '压电效应与电场、应力都无关',
+    ],
+    answer: 0,
+    explain:
+      '正压电效应：压电材料受应力产生电场，可把声压转换为电信号，用于接收换能器。\n逆压电效应：压电材料在交变电场下产生周期性伸缩，可把电能转换为超声振动，用于发射换能器。',
+    formula: '正压电：声→电；逆压电：电→声',
+    tip: '“正”是受力生电，“逆”是加电变形，别记反。',
+    tags: ['压电效应', '换能器'],
+  },
+  {
+    id: 'sound-p2',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '共振干涉法测声速时，S1、S2 之间形成驻波。移动 S2 时，相邻两次信号幅度最大值之间 S2 移动的距离等于：',
+    options: ['半波长 λ/2', '一个波长 λ', '两个波长 2λ', '四分之一波长 λ/4'],
+    answer: 0,
+    explain:
+      '驻波中相邻波腹（或相邻波节）之间的距离为 λ/2。移动 S2 时，信号幅度相邻两次最大值之间 S2 移动的距离就是 λ/2。\n所以 Δl = λ/2，v = fλ = 2fΔl。',
+    formula: 'Δl = λ/2  ⇒  v = 2fΔl',
+    tip: '相邻最大值间距是 λ/2，不是 λ；这是本实验最容易记错的地方。',
+    tags: ['共振干涉法', '驻波', '半波长'],
+  },
+  {
+    id: 'sound-p3',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '相位比较法测声速时，把 S1、S2 的信号分别输入示波器 X、Y 通道，观察李萨如图形。当 S2 移动一个波长 λ 时，图形：',
+    options: [
+      '重复出现相同的形状（相位差改变 2π）',
+      '变成一条水平直线',
+      '频率变为原来的两倍',
+      '完全消失',
+    ],
+    answer: 0,
+    explain:
+      '两信号的相位差 Δφ = 2πΔl/λ。当 Δl = λ 时，Δφ = 2π，李萨如图形回到原来的形状。\n所以相邻两次相同图形之间 S2 移动的距离就是一个波长 λ，v = fλ。',
+    formula: 'Δφ = 2πΔl/λ；Δl = λ 时图形重复',
+    tip: '相位比较法测的是 λ（不是 λ/2）；与共振干涉法区分开。',
+    tags: ['相位比较法', '李萨如图', '波长'],
+  },
+  {
+    id: 'sound-p4',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '光速测量中，反射镜沿光路移动 Δx，调制光的光程改变了多少？',
+    options: ['2Δx', 'Δx', 'Δx/2', '4Δx'],
+    answer: 0,
+    explain:
+      '光从光源到反射镜再返回接收器，反射镜移动 Δx 时，光程改变 2Δx。\n因此相位差改变 Δφ = 2π(2Δx)/λ_t；李萨如图形斜率反号时，2Δx = λ_t/2。',
+    formula: '光程差 = 2Δx；Δφ = 2π(2Δx)/λ_t',
+    tip: '公式里的 2 来自往返，漏掉就会把光速算成一半。',
+    tags: ['光速测量', '光程差', '相位差'],
+  },
+
+  /* ---------- 声速与光速测量：现象与操作 ---------- */
+  {
+    id: 'sound-o1',
+    exp: 'sound',
+    dim: 'phenomenon',
+    type: 'single',
+    stem: '调节超声换能器的谐振频率时，正确的做法是：',
+    options: [
+      '在 34~40 kHz 范围内调节信号源频率，找到接收信号幅度最大的频率，测量中保持该频率不变',
+      '在 34~40 kHz 范围内随意选一个频率，测量中不断改变',
+      '把信号源频率调到最低，测量中不再改变',
+      '调节示波器的触发方式即可，不需要调频率',
+    ],
+    answer: 0,
+    explain:
+      '当信号源频率等于换能器的固有频率时，电声、声电转换效率最高，接收信号幅度最大。\n找到这个频率后应保持固定，再移动 S2 测波长；测量过程中改变频率会破坏共振条件。',
+    formula: '谐振：接收幅度最大时的频率',
+    tip: '“幅度最大”是调谐判据；测量中频率必须固定。',
+    tags: ['谐振频率', '操作', '示波器'],
+  },
+  {
+    id: 'sound-o2',
+    exp: 'sound',
+    dim: 'phenomenon',
+    type: 'single',
+    stem: '关于声速，下列说法正确的是：',
+    options: [
+      '同一声波在水中传播速度一般大于在空气中，温度升高时空气中声速增大',
+      '同一声波在水中传播速度小于在空气中',
+      '声速与温度无关',
+      '声速只由频率决定，与介质无关',
+    ],
+    answer: 0,
+    explain:
+      '声速由介质的密度、弹性模量等性质决定。一般液体和固体中的声速大于气体中的声速。\n空气中声速随温度升高而增大，可用 v = 331.45√(1 + t/273.15) 修正。',
+    formula: 'v = 331.45·√(1 + t/273.15) m/s',
+    tip: '声速由介质和温度决定，不由频率决定。',
+    tags: ['声速', '温度', '介质'],
+  },
+  {
+    id: 'sound-o3',
+    exp: 'sound',
+    dim: 'phenomenon',
+    type: 'single',
+    stem: '用时差法测水中声速，移动 S2 使测量距离变大时，若计时值出现跳变，应如何处理？',
+    options: [
+      '顺时针微调“接收放大”旋钮，补偿信号衰减',
+      '逆时针微调“接收放大”旋钮',
+      '立即改变信号源频率',
+      '关闭示波器重新开始',
+    ],
+    answer: 0,
+    explain:
+      '距离变大时声波衰减更明显，接收信号变弱，计时可能跳变。此时应顺时针微调“接收放大”旋钮补偿衰减，使计时器正确计时。\n距离变小时若跳变，则反向微调。',
+    formula: '距离变大 → 衰减增大 → 顺时针增大接收放大',
+    tip: '这是讲义“时差法”步骤中的操作细节，常被忽略。',
+    tags: ['时差法', '接收放大', '操作'],
+  },
+
+  /* ---------- 声速与光速测量：读图与仪器 ---------- */
+  {
+    id: 'sound-rd1',
+    exp: 'sound',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为声速测量装置。S1、S2 两个压电换能器的作用分别是：',
+    figure: 'sound-setup.png',
+    figureAlt: '声速测量装置',
+    figureCaption: '图 1-1 共振干涉法测声速',
+    options: [
+      'S1 发射超声波，S2 接收超声波',
+      'S1 接收超声波，S2 发射超声波',
+      'S1、S2 都发射超声波',
+      'S1、S2 都只接收超声波',
+    ],
+    answer: 0,
+    explain:
+      'S1 是发射换能器，把信号源的电信号转换为超声振动；S2 是接收换能器，把接收到的声压转换为电信号送入示波器。\nS2 装在可移动滑块上，用于改变 S1、S2 间距。',
+    formula: 'S1 发射、S2 接收；S2 可移动',
+    tip: '图中 S2 在滑块上，靠传动机构移动。',
+    tags: ['换能器', '装置图', '仪器'],
+  },
+  {
+    id: 'sound-rd2',
+    exp: 'sound',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为不同相位差下的李萨如图形。相邻两次出现斜率相同的直线时，S2 移动的距离等于：',
+    figure: 'sound-lissajous.png',
+    figureAlt: '李萨如图形随相位差的变化',
+    figureCaption: '图 1-2 李萨如图',
+    options: ['一个波长 λ', '半个波长 λ/2', '两个波长 2λ', '四分之一波长 λ/4'],
+    answer: 0,
+    explain:
+      '相位差 Δφ = 2πΔl/λ。图形重复出现意味着 Δφ 改变 2π，即 Δl = λ。\n所以相位比较法中相邻同相图形之间的距离是一个波长。',
+    formula: 'Δφ = 2πΔl/λ；图形重复 ⇔ Δl = λ',
+    tip: '相位比较法是 λ，共振干涉法是 λ/2；两套方法不要混。',
+    tags: ['李萨如', '相位比较', '读图'],
+  },
+  {
+    id: 'sound-rd3',
+    exp: 'sound',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为时差法测声速：脉冲信号从 S1 发出，经距离 L 到达 S2，测得时间差 t。声速为：',
+    figure: 'sound-pulse.png',
+    figureAlt: '时差法测量声速',
+    figureCaption: '图 1-3 时差法测量声速',
+    options: ['v = L/t', 'v = 2L/t', 'v = L/(2t)', 'v = t/L'],
+    answer: 0,
+    explain:
+      '时差法直接测量声音传播距离 L 和对应时间 t，由 v = L/t 求声速。\n它把声速测量转化为距离和时间的测量，适合用脉冲信号实现。',
+    formula: 'v = L/t',
+    tip: '这里是单程距离 L，不是往返 2L；与光速测量的 2Δx 区分。',
+    tags: ['时差法', '脉冲', '读图'],
+  },
+  {
+    id: 'sound-rd4',
+    exp: 'sound',
+    dim: 'reading',
+    type: 'single',
+    stem: '图示为光速测量仪原理：150 MHz 调制信号与本振 149.545 MHz 混频得到 455 kHz 差频。差频的主要作用是：',
+    figure: 'light-principle.png',
+    figureAlt: '光速测量仪工作原理',
+    figureCaption: '图 2-1 光速测量仪工作原理图',
+    options: [
+      '把高频信号降为中频，便于测相，且差频信号保持原相位差',
+      '提高光速',
+      '改变调制波的波长',
+      '把光信号直接变成机械振动',
+    ],
+    answer: 0,
+    explain:
+      '150 MHz 频率太高，普通测相仪器响应不了。混频后得到 455 kHz 差频，频率降低但相位差保持不变，便于用示波器测量。\n再由 Δφ = 2π(2Δx)/λ_t 求调制波长，最后 c = f_t λ_t。',
+    formula: 'f_差 = |150 MHz − 149.545 MHz| = 455 kHz',
+    tip: '差频不改变相位差，这是“差频检相法”的关键。',
+    tags: ['差频', '光速测量', '原理图'],
+  },
+
+  /* ---------- 声速与光速测量：数据处理 ---------- */
+  {
+    id: 'sound-d1',
+    exp: 'sound',
+    dim: 'data',
+    type: 'numeric',
+    stem: '共振干涉法测空气中声速，信号源频率 f = 34.00 kHz，移动 S2 记录 12 组信号幅度最大处的位置如下表（mm）。用逐差法求声速 v（m/s）。',
+    table: {
+      caption: '表 1-1 共振干涉法数据（部分）',
+      headers: ['次数', '1', '2', '3', '4', '5', '6'],
+      rows: [
+        ['l_i/mm', '100.00', '105.00', '110.00', '115.00', '120.00', '125.00'],
+        ['次数', '7', '8', '9', '10', '11', '12'],
+        ['l_i/mm', '130.00', '135.00', '140.00', '145.00', '150.00', '155.00'],
+      ],
+    },
+    answer: 340,
+    tol: 0.02,
+    unit: 'm/s',
+    sigfig: 3,
+    hint: '先逐差求 Δl，再 λ = 2Δl，最后 v = fλ',
+    explain:
+      '逐差：Δl = (l7 − l1)/6 = (130.00 − 100.00)/6 = 5.00 mm。\n相邻最大值间距为半波长，λ = 2Δl = 10.0 mm = 0.0100 m。\nv = fλ = 34.00×10³ × 0.0100 = 340 m/s。',
+    formula: 'Δl = (l7−l1)/6；λ = 2Δl；v = fλ',
+    tip: '12 组数据用逐差法，不要只取首末两点；v = 2fΔl 也可以直接算。',
+    tags: ['逐差法', '声速', '数据处理'],
+  },
+  {
+    id: 'sound-d2',
+    exp: 'sound',
+    dim: 'data',
+    type: 'numeric',
+    stem: '光速测量：调制频率 f_t = 150.0 MHz，差频 455 kHz（周期 T = 2.198 μs）。反射镜移动 Δx 时，示波器上波形水平移动 Δt，数据如下表。求空气中的光速 c（m/s，用科学计数法或小数表示）。',
+    table: {
+      caption: '表 2-2 相位法测光速数据',
+      headers: ['次数', '1', '2', '3'],
+      rows: [
+        ['Δx/mm', '150.0', '200.0', '250.0'],
+        ['Δt/μs', '0.330', '0.440', '0.550'],
+      ],
+    },
+    answer: 300000000,
+    tol: 0.02,
+    unit: 'm/s',
+    sigfig: 3,
+    hint: 'λ_t = 2Δx·T/Δt，c = f_t·λ_t',
+    explain:
+      '由 Δφ = 2πΔt/T = 2π(2Δx)/λ_t，得 λ_t = 2Δx·T/Δt。\n以第一组为例：λ_t = 2×0.150 m × 2.198 μs / 0.330 μs = 1.998 m。\nc = f_t λ_t = 150.0×10⁶ × 1.998 = 2.997×10⁸ m/s ≈ 3.00×10⁸ m/s。\n三组数据结果一致，取平均约 3.00×10⁸ m/s。',
+    formula: 'λ_t = 2Δx·T/Δt；c = f_t·λ_t',
+    tip: '光程改变是 2Δx，漏掉 2 会使结果差一倍。',
+    tags: ['光速', '相位法', '数据处理'],
+  },
+  {
+    id: 'sound-d3',
+    exp: 'sound',
+    dim: 'data',
+    type: 'numeric',
+    stem: '室温 t = 25.0 ℃。已知 0 ℃ 时空气中声速 v0 = 331.45 m/s，按 v = v0·√(1 + t/273.15) 计算此时的声速（m/s）。',
+    answer: 346.3,
+    tol: 0.01,
+    unit: 'm/s',
+    sigfig: 4,
+    hint: '先算 1 + 25.0/273.15，再开方',
+    explain:
+      '1 + t/273.15 = 1 + 25.0/273.15 = 1.0915，开方得 1.0448。\nv = 331.45 × 1.0448 ≈ 346.3 m/s。\n温度升高使声速增大，所以 25 ℃ 时比 0 ℃ 的 331.45 m/s 大。',
+    formula: 'v = 331.45·√(1 + t/273.15)',
+    tip: '温度用摄氏度，式中的 273.15 是 0 ℃ 对应的热力学温度。',
+    tags: ['温度修正', '声速', '计算'],
+  },
+
+  /* ---------- 声速与光速测量：方法名称 ---------- */
+  {
+    id: 'sound-c1',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '利用 S1、S2 之间形成的驻波，移动 S2 时相邻信号最大值间距为半波长来测声速，这种方法称为：',
+    options: ['共振干涉法', '相位比较法', '时差法', '差频检相法'],
+    answer: 0,
+    explain:
+      '共振干涉法：S1 发射、S2 反射，两端面间形成驻波；移动 S2 改变腔长，信号幅度周期性出现最大值，相邻最大值间距为 λ/2。\n相位比较法用李萨如图；时差法测脉冲飞行时间；差频检相法用于光速测量。',
+    formula: '共振干涉法：Δl = λ/2',
+    tip: '四个方法名称要能对应到“驻波 / 李萨如 / 脉冲时间 / 混频”四种现象。',
+    tags: ['方法名称', '共振干涉法'],
+  },
+  {
+    id: 'sound-c2',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'single',
+    stem: '把 150 MHz 调制信号与本振 149.545 MHz 混频，得到 455 kHz 差频后再测量相位差，这种方法称为：',
+    options: ['差频检相法', '共振干涉法', '相位比较法', '时差法'],
+    answer: 0,
+    explain:
+      '差频检相法：利用混频把高频信号降为中频，差频信号保持原相位差，便于测相。\n本实验用它测调制波波长，再由 c = f_t λ_t 求光速。',
+    formula: 'f_差 = 455 kHz，相位差不变',
+    tip: '“差频”是降频手段，“检相”才是目的；别和相位比较法混为一谈。',
+    tags: ['方法名称', '差频检相法', '光速'],
+  }
+);
+
+BANK.push(
+  {
+    id: 'sound-rd5',
+    exp: 'sound',
+    dim: 'reading',
+    type: 'numeric',
+    stem: '图示声速测定仪的移动滑块位置由游标卡尺读出。所用游标卡尺为 50 分度（分度值 0.02 mm），主尺读数为 12 mm，游标尺第 24 条刻线与主尺刻线对齐。读数应为多少 mm？',
+    figure: 'sound-apparatus.png',
+    figureAlt: '声速测定仪与移动滑块',
+    figureCaption: '图 1-4 声速测定仪及专用信号源',
+    answer: 12.48,
+    tol: 0.01,
+    unit: 'mm',
+    sigfig: 4,
+    hint: '主尺读数 + 游标对齐格数 × 0.02 mm',
+    explain:
+      '50 分度游标卡尺的分度值为 0.02 mm。\n读数 = 主尺读数 + 对齐格数 × 分度值 = 12 mm + 24 × 0.02 mm = 12.48 mm。\n游标卡尺一般不需要再估读，最后一位就是 0.02 mm 的位。',
+    formula: '读数 = 主尺 + n × 0.02 mm',
+    tip: '50 分度是 0.02 mm，20 分度才是 0.05 mm；不要用错分度值。',
+    tags: ['游标卡尺', '仪器读数', '声速'],
+  }
+);
+
+BANK.push(
+  {
+    id: 'bridge-d1',
+    exp: 'bridge',
+    dim: 'data',
+    type: 'numeric',
+    stem: '用平衡电桥测量 Cu50 铜电阻的温度特性，得到下表数据。用最小二乘法拟合 R = R0(1 + αt)，已求得斜率 k = 0.213 Ω/℃、截距 R0 = 49.9 Ω。求电阻温度系数 α（℃⁻¹）。',
+    table: {
+      caption: '表 Cu50 铜电阻的 R–t 数据',
+      headers: ['t/℃', '20', '30', '40', '50', '60'],
+      rows: [['R/Ω', '54.3', '56.4', '58.6', '60.7', '62.8']],
+    },
+    answer: 0.00427,
+    tol: 0.02,
+    unit: '℃⁻¹',
+    sigfig: 3,
+    hint: 'R = R0 + kt，而 k = R0·α',
+    explain:
+      '拟合直线 R = R0 + kt 与 R = R0(1 + αt) 对比，可知 k = R0α，所以 α = k/R0。\nα = 0.213 / 49.9 = 4.27×10⁻³ ℃⁻¹。\n拟合时用全部数据点，比只取首末两点更可靠。',
+    formula: 'α = k / R0 = 0.213 / 49.9',
+    tip: '不要把斜率 k 直接当成 α；还要除以截距 R0。',
+    tags: ['最小二乘法', '温度系数', '表格'],
+  },
+  {
+    id: 'michelson-d1',
+    exp: 'michelson',
+    dim: 'data',
+    type: 'numeric',
+    stem: '测量 He–Ne 激光波长：每涌出 50 个圆环记录一次移动镜位置，共 10 组数据（mm），如下表。用逐差法求激光波长 λ（nm）。',
+    table: {
+      caption: '表 测量位置 d（每 50 环读一次）',
+      headers: ['次数', '1', '2', '3', '4', '5'],
+      rows: [
+        ['d_i/mm', '100.0000', '100.0158', '100.0316', '100.0474', '100.0632'],
+        ['次数', '6', '7', '8', '9', '10'],
+        ['d_i/mm', '100.0790', '100.0948', '100.1106', '100.1264', '100.1422'],
+      ],
+    },
+    answer: 632,
+    tol: 0.01,
+    unit: 'nm',
+    sigfig: 3,
+    hint: '逐差求 Δd（对应 5×50 = 250 环），再用 2Δd = Nλ',
+    explain:
+      '逐差：Δd = [(d6−d1) + (d7−d2) + … + (d10−d5)] / 5 = 0.0790 mm，这对应 5×50 = 250 个圆环。\n由 2Δd = Nλ 得 λ = 2×0.0790 mm / 250 = 6.32×10⁻⁴ mm = 632 nm。\n也可先算每 50 环的位移 0.01580 mm，再算 λ = 2×0.01580/50 = 632 nm。',
+    formula: '2Δd = Nλ；Δd = 0.0790 mm，N = 250',
+    tip: '逐差后的 Δd 对应 250 环，不是 50 环；两种算法（250 环或每 50 环）结果一致。',
+    tags: ['逐差法', '波长', '表格'],
+  },
+  {
+    id: 'polar-d1',
+    exp: 'polar',
+    dim: 'data',
+    type: 'numeric',
+    stem: '线偏振光经 λ/4 波片（光轴与入射振动方向夹角 θ = 30°）后成为椭圆偏振光。转动检偏器测得不同 φ 下的光强如下表（μW）。已知 I = A²(sin²θcos²φ + cos²θsin²φ)，求振幅 A（μW^1/2）。',
+    table: {
+      caption: '表 椭圆偏振光光强 I–φ 数据',
+      headers: ['φ/°', '0', '30', '45', '60', '90', '120', '135', '150', '180'],
+      rows: [['I/μW', '25.0', '37.5', '50.0', '62.5', '75.0', '62.5', '50.0', '37.5', '25.0']],
+    },
+    answer: 10,
+    tol: 0.03,
+    unit: 'μW^1/2',
+    sigfig: 3,
+    hint: 'Imax = A²cos²θ（θ=30°），或由 Imax/Imin 求 A',
+    explain:
+      'θ = 30° 时，I = A²(0.25cos²φ + 0.75sin²φ)。\nφ = 90° 时 I 最大：Imax = 0.75A² = 75.0 μW，得 A² = 100，A = 10.0 μW^1/2。\n也可用 Imin = 0.25A² = 25.0 μW 验证。',
+    formula: 'Imax = A²cos²θ = 0.75A²；A = √(Imax/0.75)',
+    tip: '先找 Imax 再除以 cos²θ；不要直接把 Imax 开方。',
+    tags: ['椭圆偏振', '振幅', '表格', '数据处理'],
+  },
+  {
+    id: 'nmr-d1',
+    exp: 'nmr',
+    dim: 'data',
+    type: 'numeric',
+    stem: '测量 1H 核的共振频率随磁场的变化，得到下表数据。作 ν–B 直线并用最小二乘法求斜率，得到 γ/2π（MHz/T）。',
+    table: {
+      caption: '表 1H 核的 ν–B0 数据',
+      headers: ['B0/T', '0.300', '0.350', '0.400', '0.450', '0.500'],
+      rows: [['ν/MHz', '12.77', '14.90', '17.03', '19.16', '21.29']],
+    },
+    answer: 42.58,
+    tol: 0.02,
+    unit: 'MHz/T',
+    sigfig: 4,
+    hint: 'γ/2π = ν/B = 直线斜率',
+    explain:
+      '由 ν = (γ/2π)B 可知 ν–B 直线过原点，斜率就是 γ/2π。\n用首末两点估算：(21.29 − 12.77)/(0.500 − 0.300) = 8.52/0.200 = 42.6 MHz/T；最小二乘结果约 42.58 MHz/T。\n再由 g = (γ/2π)/(μN/h) = 42.58/7.6226 ≈ 5.586。',
+    formula: 'γ/2π = ν/B = k；g = k/(μN/h)',
+    tip: 'γ/2π 的单位是 MHz/T；γ 本身还要乘 2π，单位 rad·s⁻¹·T⁻¹。',
+    tags: ['磁旋比', '最小二乘', '表格'],
+  },
+  {
+    id: 'solar-d1',
+    exp: 'solar',
+    dim: 'data',
+    type: 'numeric',
+    stem: '测量太阳能电池的输出特性，得到下表数据。求最大输出功率 Pmax（mW）。',
+    table: {
+      caption: '表 太阳能电池 U–I 数据',
+      headers: ['U/V', '0', '2', '4', '6', '8', '10', '11', '12', '12.5'],
+      rows: [['I/mA', '58', '58', '57', '57', '56', '55', '53', '40', '0']],
+    },
+    answer: 583,
+    tol: 0.03,
+    unit: 'mW',
+    sigfig: 3,
+    hint: '逐点算 P = UI，找最大值',
+    explain:
+      '逐点计算 P = UI：0、116、228、342、448、550、583、480、0 mW。\n最大功率出现在 U = 11 V、I = 53 mA 处，Pmax = 583 mW。\n对应的 11 V 就是最佳工作电压，可用于设置 DC-DC。',
+    formula: 'P = U·I',
+    tip: '不要用 Uoc×Isc 代替 Pmax；最大功率点在曲线中间。',
+    tags: ['最大功率', '伏安特性', '表格'],
+  }
+);
+
+BANK.push(
+  {
+    id: 'bridge-c1',
+    exp: 'bridge',
+    dim: 'principle',
+    type: 'single',
+    stem: '用平衡电桥测量未知电阻，通过调节桥臂使检流计指零，再把待测电阻与标准电阻相比较。这种测量方法属于：',
+    options: ['零示比较法', '伏安法', '补偿法', '模拟法'],
+    answer: 0,
+    explain:
+      '平衡电桥把待测电阻与标准电阻放在桥臂上比较，调节到检流计指零（零示），此时两者满足确定的比值关系。\n这种方法叫零示比较法（也叫比较法），测量结果只取决于桥臂电阻比，与电源电压无关。',
+    formula: '零示：检流计指零 → 比较桥臂电阻',
+    tip: '“零示”指检流计零读数，不是电源电压为零。',
+    tags: ['方法名称', '零示比较法', '平衡电桥'],
+  },
+  {
+    id: 'michelson-c1',
+    exp: 'michelson',
+    dim: 'principle',
+    type: 'single',
+    stem: '迈克尔逊干涉仪利用分光板把一束光分成两束，再让它们经过不同光程后叠加产生干涉。这种获得相干光的方法称为：',
+    options: ['分振幅法', '分波阵面法', '双折射法', '衍射法'],
+    answer: 0,
+    explain:
+      '分光板把同一束光的振幅分成两部分（反射光和透射光），两束光再经过 M1、M2 反射后叠加，属于分振幅法。\n杨氏双缝是分波阵面法；双折射法利用晶体的 o、e 光。',
+    formula: '分振幅：一束光 → 两束相干光',
+    tip: '迈克尔逊是分振幅，不是分波阵面；不要和杨氏双缝混淆。',
+    tags: ['方法名称', '分振幅法', '相干光'],
+  },
+  {
+    id: 'polar-c1',
+    exp: 'polar',
+    dim: 'principle',
+    type: 'single',
+    stem: '旋转检偏器，观察透射光强从最大变到最小（消光），以此判断入射光的偏振方向。这种实验方法称为：',
+    options: ['消光法', '补偿法', '干涉法', '衍射法'],
+    answer: 0,
+    explain:
+      '线偏振光通过检偏器时，光强按 I = I0cos²θ 变化；当检偏器透光轴与振动方向垂直时出现消光。\n利用消光位置确定偏振方向、判断波片性质的方法叫消光法。',
+    formula: '消光：θ = 90°，I = 0',
+    tip: '消光是光强最小（理论为零），不是光强最大。',
+    tags: ['方法名称', '消光法', '检偏'],
+  },
+  {
+    id: 'nmr-c1',
+    exp: 'nmr',
+    dim: 'principle',
+    type: 'single',
+    stem: '关于磁旋比 γ 与 g 因子的关系，下列表达式正确的是：',
+    options: ['γ/2π = g·μN/h', 'γ/2π = g·μN/ħ', 'γ/2π = 2π·g·μN/h', 'γ/2π = g·μN·B'],
+    answer: 0,
+    explain:
+      '磁旋比定义为 γ = μ/P，与 g 因子的关系为 γ = gμN/ħ。\n因为 ħ = h/2π，所以 γ/2π = gμN/h；实验上又由共振条件得到 γ/2π = ν/B，单位是 MHz/T。\n1H 的 γ/2π ≈ 42.58 MHz/T，19F ≈ 40.07 MHz/T。',
+    formula: 'γ = gμN/ħ；γ/2π = gμN/h = ν/B',
+    tip: 'γ 的单位是 rad·s⁻¹·T⁻¹；γ/2π 的单位才是 MHz/T。',
+    tags: ['磁旋比', 'g 因子', '单位'],
+  },
+  {
+    id: 'solar-c1',
+    exp: 'solar',
+    dim: 'principle',
+    type: 'single',
+    stem: '测量太阳能电池的输出电压和电流，逐点计算功率并作 I–V、P–U 曲线。这种测量方法属于：',
+    options: ['伏安法', '电桥法', '干涉法', '补偿法'],
+    answer: 0,
+    explain:
+      '伏安法通过改变负载电阻，测量元件在不同工作点上的电压 U 和电流 I，从而得到伏安特性。\n太阳能电池的 I–V 曲线、P–U 曲线和最大功率点都是用伏安法测得的。',
+    formula: '伏安法：改变负载，测 U、I',
+    tip: '伏安法不是“伏安表法”；核心是逐点测量 U–I 关系。',
+    tags: ['方法名称', '伏安法', 'I–V 曲线'],
+  }
+);
+
+BANK.push(
+  {
+    id: 'bridge-m1',
+    exp: 'bridge',
+    dim: 'phenomenon',
+    type: 'multi',
+    stem: '关于电桥实验，下列说法正确的是（多选）：',
+    options: [
+      '平衡电桥的结果只由桥臂电阻比决定，与电源电压无关',
+      '非平衡电桥的输出电压与电源电压成正比',
+      '预调平衡时残余的零点偏移可以在数据处理中扣除',
+      '交流电桥只需一个可调参数就能平衡',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      '平衡电桥检流计指零，结果只由桥臂比决定；非平衡电桥的 U0 ∝ Us，电源电压必须准确。\n预调平衡的残余偏置是恒定零点，可在作差或拟合时扣除。\n交流电桥要同时满足幅值和相位两个条件，至少需要两个独立可调参数。',
+    formula: '平衡：Rx=(Ra/Rb)Rn；非平衡：U0∝Us',
+    tip: '交流电桥“一个参数就够”是典型错误。',
+    tags: ['电桥', '电源电压', '多选'],
+  },
+  {
+    id: 'michelson-m1',
+    exp: 'michelson',
+    dim: 'reading',
+    type: 'multi',
+    stem: '关于迈克尔逊干涉仪的部件与读数，下列说法正确的是（多选）：',
+    options: [
+      'G1 是分光板，G2 是补偿板',
+      'M1 是可沿导轨移动的反射镜',
+      '移动镜位置 = 主标尺读数 + 读数窗读数 + 微动鼓轮读数',
+      '补偿板的作用是增加透射光强',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      'G1 半透膜分光，G2 补偿两束光在玻璃中的光程；M1 移动、M2 固定。\n位置读数由主标尺（1 mm）、读数窗（0.01 mm）和鼓轮（0.0001 mm）三部分相加。\n补偿板补偿的是玻璃光程和色散，不是增加光强。',
+    formula: '位置 = 主标尺 + 读数窗 + 鼓轮',
+    tip: '补偿板不是“增光板”，它不改变光强。',
+    tags: ['仪器部件', '读数', '多选'],
+  },
+  {
+    id: 'polar-m1',
+    exp: 'polar',
+    dim: 'principle',
+    type: 'multi',
+    stem: '关于波片，下列说法正确的是（多选）：',
+    options: [
+      'λ/2 波片使出射线偏振光的振动方向转过 2θ',
+      'λ/4 波片在 θ = 45° 时出射圆偏振光',
+      'λ/4 波片在 θ = 0° 时出射仍为线偏振光',
+      '波片会改变透射光的总光强',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      'λ/2 波片产生 π 相位差，线偏振光出射仍是线偏振，方向转过 2θ。\nλ/4 波片产生 π/2 相位差：θ=45° 时两分量振幅相等，出射圆偏振；θ=0° 时只有一个分量，仍为线偏振。\n理想波片不吸收光，改变的是偏振态，不是总光强。',
+    formula: 'λ/2：转 2θ；λ/4：θ=45° → 圆偏振',
+    tip: '波片改变偏振态，不改变总光强。',
+    tags: ['波片', '偏振态', '多选'],
+  },
+  {
+    id: 'nmr-m1',
+    exp: 'nmr',
+    dim: 'phenomenon',
+    type: 'multi',
+    stem: '关于核磁共振信号，下列说法正确的是（多选）：',
+    options: [
+      '信号均匀排列、间隔 10 ms 说明 2πν/γ = B0',
+      '间隔 20 ms 对应 2πν/γ = B0 ± B′',
+      '尾波说明扫场通过共振点的时间比弛豫时间短得多',
+      '尾波振荡次数越多说明磁场越不均匀',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      '10 ms 对应共振发生在交变磁场过零时刻，即 B = B0；20 ms 对应 B0 ± B′。\n尾波是扫场过快、通过共振点的时间远小于弛豫时间时出现的衰减振荡。\n磁场越均匀，尾波振荡次数越多，所以应把探头调到尾波次数最多的位置。',
+    formula: '10 ms → B0；20 ms → B0 ± B′；尾波 → 扫场过快',
+    tip: '尾波次数越多说明磁场越均匀，不是越不均匀。',
+    tags: ['共振信号', '尾波', '多选'],
+  },
+  {
+    id: 'solar-m1',
+    exp: 'solar',
+    dim: 'phenomenon',
+    type: 'multi',
+    stem: '关于太阳能电池系统，下列说法正确的是（多选）：',
+    options: [
+      '串联支路的电流由输出最小的电池决定',
+      '局部遮挡会形成热斑，旁路二极管可保护组件',
+      '超级电容靠双电层物理储能，可反复充放电',
+      '超级电容充电电压可以超过 11 V',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      '串联电流处处相等，受最小电流电池限制；被遮挡电池会消耗其它电池能量形成热斑，旁路二极管让电流绕过。\n超级电容靠双电层物理储能，循环寿命长；但超过额定 11 V 会使电解液分解、损坏器件。',
+    formula: '串联取最小；超级电容 ≤ 11 V',
+    tip: '“超过 11 V 没关系”是错误选项。',
+    tags: ['失配', '超级电容', '多选'],
+  },
+  {
+    id: 'sound-m1',
+    exp: 'sound',
+    dim: 'principle',
+    type: 'multi',
+    stem: '关于声速与光速测量，下列说法正确的是（多选）：',
+    options: [
+      '共振干涉法相邻信号最大值间距为 λ/2',
+      '相位比较法相邻同相李萨如图形间距为 λ',
+      '光速测量中反射镜移动 Δx，光程改变 2Δx',
+      '差频会改变两信号的相位差',
+    ],
+    answer: [0, 1, 2],
+    explain:
+      '共振干涉法：驻波相邻波腹间距 λ/2，v = 2fΔl。\n相位比较法：Δφ = 2πΔl/λ，图形重复时 Δl = λ。\n光速测量中光往返，反射镜移动 Δx 使光程改变 2Δx；差频只降频，不改变相位差。',
+    formula: '共振：Δl=λ/2；相位：Δl=λ；光程差=2Δx',
+    tip: '差频保持相位差不变，这是差频检相法的基础。',
+    tags: ['声速', '光速', '方法', '多选'],
+  }
+);
+
+BANK.push(
+  {
+    id: 'bridge-p7',
+    exp: 'bridge',
+    dim: 'principle',
+    type: 'numeric',
+    stem: '用维恩电桥测量实际电容，Ra = 100 Ω，Rb = 120 Ω，标准电容 Cn = 1.00 μF。电桥平衡时待测电容 Cx 为多少 μF？',
+    answer: 1.2,
+    tol: 0.02,
+    unit: 'μF',
+    sigfig: 3,
+    hint: 'Cx = (Rb/Ra)·Cn',
+    explain:
+      '维恩电桥平衡时，待测电容与标准电容满足 Cx = (Rb/Ra)·Cn。\nCx = (120/100) × 1.00 μF = 1.20 μF。\n同时可测得损耗电阻 Rx = (Ra/Rb)·Rn，损耗因子 tanδ = ωRnCn。',
+    formula: 'Cx = (Rb/Ra)·Cn；tanδ = ωRnCn',
+    tip: 'Cx 的比值方向与 Rx 相反：Cx 用 Rb/Ra，Rx 用 Ra/Rb。',
+    tags: ['维恩电桥', '电容测量', 'tanδ'],
+  },
+  {
+    id: 'bridge-p8',
+    exp: 'bridge',
+    dim: 'principle',
+    type: 'numeric',
+    stem: '用麦克斯韦电桥测量低 Q 值电感，Ra = Rb = 100 Ω，标准电容 Cn = 1.00 μF。待测电感 Lx 为多少 mH？',
+    answer: 10,
+    tol: 0.02,
+    unit: 'mH',
+    sigfig: 3,
+    hint: 'Lx = Ra·Rb·Cn',
+    explain:
+      '麦克斯韦电桥平衡时，Lx = Ra·Rb·Cn。\nLx = 100 × 100 × 1.00×10⁻⁶ H = 1.00×10⁻² H = 10.0 mH。\n损耗电阻 Rx = RaRb/Rn，品质因数 Q = ωLx/Rx = ωCnRn。',
+    formula: 'Lx = Ra·Rb·Cn；Q = ωCnRn',
+    tip: 'Lx 公式里没有 Rn；Rn 只影响 Rx 和 Q。',
+    tags: ['麦克斯韦电桥', '电感测量', '品质因数'],
+  },
+  {
+    id: 'michelson-p7',
+    exp: 'michelson',
+    dim: 'principle',
+    type: 'single',
+    stem: '用白光做光源观察干涉条纹时，为什么必须使用补偿板 G2？',
+    options: [
+      '白光相干长度很短，补偿板使两束光在玻璃中的光程相同，消除色散，才能看到彩色条纹',
+      '白光太弱，补偿板用来增强光强',
+      '白光波长大，不需要补偿也能看到条纹',
+      '补偿板使两臂的几何光程严格相等',
+    ],
+    answer: 0,
+    explain:
+      '白光是宽谱光，相干长度极短，不同波长的光程差不同。若两束光通过分光板的玻璃次数不同，色散会使各波长光程差不同，条纹重叠而无法观察。\n补偿板与分光板同材质、同厚度且平行，使两束光都三次通过玻璃，玻璃光程相同，从而消除色散影响。\n它补偿的是玻璃中的光程，不是两臂的几何光程。',
+    formula: 'G1、G2 同材质同厚度 → 玻璃光程相等',
+    tip: '补偿板不是“增强光强”，也不是让两臂几何长度相等。',
+    tags: ['白光', '补偿板', '相干长度'],
+  },
+  {
+    id: 'solar-p9',
+    exp: 'solar',
+    dim: 'principle',
+    type: 'numeric',
+    stem: '某太阳能电池的开路电压 Uoc = 12.0 V，短路电流 Isc = 90.0 mA，最大输出功率 Pmax = 0.730 W。求填充因子 FF。',
+    answer: 0.676,
+    tol: 0.03,
+    unit: '',
+    sigfig: 3,
+    hint: 'FF = Pmax/(Uoc·Isc)，电流换成 A',
+    explain:
+      '填充因子 FF = Pmax/(Uoc·Isc)。\nIsc = 90.0 mA = 0.0900 A，Uoc·Isc = 12.0 × 0.0900 = 1.08 W。\nFF = 0.730/1.08 = 0.676。\n晶硅电池的 FF 一般在 0.7~0.8 左右，FF 越大，输出特性越接近矩形。',
+    formula: 'FF = Pmax / (Uoc·Isc)',
+    tip: '电流要用 A；FF 是无量纲量。',
+    tags: ['填充因子', '最大功率', '太阳能电池'],
+  }
+);
+
 /* Experiment / dimension metadata and the quick-reference handbook. */
 
-const APP_VERSION = '1.1.2';
+const APP_VERSION = '1.2.0';
 
 const EXPS = [
   { id: 'bridge', name: '交直流电桥', badge: '桥', short: '电桥', accent: 'brand' },
@@ -1580,12 +2686,14 @@ const EXPS = [
   { id: 'polar', name: '偏振光与双折射', badge: '偏', short: '偏振', accent: 'warn' },
   { id: 'nmr', name: '核磁共振', badge: '磁', short: '核磁', accent: 'error' },
   { id: 'solar', name: '多功能太阳能电池', badge: '阳', short: '太阳能', accent: 'idle' },
+  { id: 'sound', name: '声速与光速测量', badge: '声', short: '声速光速', accent: 'brand' },
 ];
 
 const DIMS = [
-  { id: 'principle', name: '实验原理', short: '原理', desc: '原理、公式与简单计算' },
-  { id: 'phenomenon', name: '现象与操作', short: '操作', desc: '实验现象、调节与正确操作' },
-  { id: 'uncertainty', name: '不确定度与有效数字', short: '不确定度', desc: '误差分析、数据处理与有效位数' },
+  { id: 'principle', name: '实验原理', short: '原理', desc: '原理、方法名称与公式含义' },
+  { id: 'phenomenon', name: '现象与操作', short: '操作', desc: '实验现象、调节与器材作用' },
+  { id: 'reading', name: '读图与仪器', short: '读图', desc: '器材读数、装置与图表识别' },
+  { id: 'data', name: '数据处理', short: '数据', desc: '表格处理、公式计算、拟合与不确定度' },
 ];
 
 const CHEATS = [
@@ -1834,6 +2942,7 @@ const CHEATS = [
         items: [
           '共振条件：hν = gμN B，即 ν = (gμN/h)·B，其中 μN/h = 7.6225914 MHz/T。',
           '磁旋比：γ = gμN/ħ = 2πν/B，常用 γ/2π = ν/B 表征。',
+          'γ/2π = g·(μN/h)：1H 约 42.58 MHz/T，19F 约 40.07 MHz/T。',
           '能级数：2I + 1；1H 和 19F 的 I = 1/2，各有两个能级。',
           '拉莫尔进动角频率：ω0 = γB0。',
           '公认值：g_H = 5.5857，g_F = 5.2567。',
@@ -1842,6 +2951,7 @@ const CHEATS = [
           'hν = g·μN·B',
           'ν = (g·μN/h)·B，  μN/h = 7.6225914 MHz/T',
           'γ = 2πν/B',
+          'γ/2π = g·μN/h = ν/B',
           '能级数 = 2I + 1',
         ],
       },
@@ -1931,6 +3041,54 @@ const CHEATS = [
           'P–U 曲线用于找最大功率点，I–V 曲线用于看输出特性，两者不能混用。',
           '功率计算注意单位：U 用 V、I 用 mA 时，P 的单位是 mW。',
           '不确定度合成时，P = UI 用相对不确定度方和根；E = ½CU² 中电压项要乘 2。',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'sound',
+    name: '声速与光速测量',
+    badge: '声',
+    accent: 'brand',
+    sections: [
+      {
+        title: '核心公式',
+        items: [
+          '声速：v = f·λ。共振干涉法相邻极大值间距 Δl = λ/2，所以 v = 2fΔl。',
+          '相位比较法：S2 移动一个波长 λ 时李萨如图形重复；Δφ = 2πΔl/λ。',
+          '时差法：v = L/t。',
+          '空气中声速的温度修正：v = 331.45·√(1 + t/273.15) m/s（0 ℃ 时为 331.45 m/s）。',
+          '光速：调制波 c = f_t·λ_t；反射镜移动 Δx 使光程改变 2Δx，Δφ = 2π(2Δx)/λ_t。',
+          '差频后：λ_t = 2Δx·T/Δt（T = 1/455 kHz），c = f_t·λ_t；李萨如图形斜率反号时 2Δx = λ_t/2。',
+        ],
+        formulas: [
+          'v = f·λ',
+          '共振干涉：Δl = λ/2  →  v = 2fΔl',
+          '相位比较：Δφ = 2πΔl/λ',
+          'v = 331.45·√(1 + t/273.15)',
+          'c = f_t·λ_t，  λ_t = 2Δx·T/Δt',
+          '李萨如：2Δx = λ_t/2  →  λ_t = 4Δx',
+        ],
+      },
+      {
+        title: '仪器与操作',
+        items: [
+          '压电换能器：发射换能器利用逆压电效应（电→声），接收换能器利用正压电效应（声→电）。',
+          '共振干涉法：S1、S2 平行，移动 S2 找信号幅度最大处，连续记录 12 组位置，逐差法求 Δl。',
+          '相位比较法：示波器 X-Y 模式观察李萨如图，记录斜率为正、负交替的位置，连续 12 组。',
+          '谐振频率调节：信号源频率在 34~40 kHz 范围找到接收幅度最大的频率，测量中保持该频率不变。',
+          '光速：150 MHz 调制、149.545 MHz 本振、455 kHz 差频；示波器测 Δt 与周期 T，导轨读 Δx。',
+          '光速李萨如法：反射镜移动使图形由直线变为斜率相反的直线，2Δx 为半个调制波长。',
+        ],
+      },
+      {
+        title: '易错提醒',
+        items: [
+          '共振干涉法相邻最大值间距是 λ/2，不是 λ；v = 2fΔl。',
+          '相位比较法相邻同相图形间距是 λ；李萨如图形斜率为正、负交替。',
+          '光速测量中反射镜移动 Δx，光程改变 2Δx，公式里不要漏掉因子 2。',
+          '差频后频率 455 kHz，周期 T = 1/455 kHz ≈ 2.2 μs，Δt 与 T 必须用同一时间单位。',
+          '声速随温度升高而增大；水中的声速大于空气中的声速。',
         ],
       },
     ],
@@ -2122,6 +3280,21 @@ const CSS = `
 .pl-qcard { padding: 20px; }
 .pl-qmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .pl-qstem { font-size: 15px; line-height: 1.7; font-weight: 500; margin: 0 0 16px; white-space: pre-wrap; }
+.pl-figure {
+  margin: 0 0 14px; padding: 10px; text-align: center;
+  border: 1px solid var(--dsw-alias-border-l1); border-radius: 10px;
+  background: var(--dsw-alias-bg-base);
+}
+.pl-figure img { display: block; max-width: 100%; max-height: 330px; margin: 0 auto; border-radius: 6px; }
+.pl-figure figcaption { margin-top: 7px; font-size: 11px; color: var(--dsw-alias-label-secondary); }
+.pl-table-wrap { margin: 0 0 16px; overflow-x: auto; }
+.pl-table-caption { margin-bottom: 5px; font-size: 11.5px; color: var(--dsw-alias-label-secondary); }
+.pl-table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+.pl-table th, .pl-table td {
+  padding: 5px 8px; text-align: center; white-space: nowrap;
+  border: 1px solid var(--dsw-alias-border-l1);
+}
+.pl-table th { background: var(--dsw-alias-bg-layer-2); font-weight: 600; }
 .pl-options { display: flex; flex-direction: column; gap: 8px; }
 .pl-option {
   display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left;
@@ -2492,12 +3665,20 @@ function isCustomBank(value) {
   );
 }
 
+function normalizeCustomBank(bank) {
+  return Object.assign({}, bank, {
+    questions: (bank.questions || []).map((q) =>
+      q && q.dim === 'uncertainty' ? Object.assign({}, q, { dim: 'data' }) : q
+    ),
+  });
+}
+
 function loadCustomBanks() {
   try {
     const raw = window.localStorage.getItem(CUSTOM_KEY);
     if (!raw) return [];
     const list = JSON.parse(raw);
-    return Array.isArray(list) ? list.filter(isCustomBank) : [];
+    return Array.isArray(list) ? list.filter(isCustomBank).map(normalizeCustomBank) : [];
   } catch (err) {
     return [];
   }
@@ -2512,7 +3693,7 @@ function saveCustomBanks(list) {
 }
 
 function setCustomBanks(list) {
-  CUSTOM_BANKS = Array.isArray(list) ? list.filter(isCustomBank) : [];
+  CUSTOM_BANKS = Array.isArray(list) ? list.filter(isCustomBank).map(normalizeCustomBank) : [];
 }
 
 function getCustomBanks() {
@@ -3186,7 +4367,7 @@ function Shell(props) {
           'div',
           null,
           h('h1', null, '大物实验 · 笔试冲刺'),
-          h('p', null, '5 个实验 + 自建专项 · 原理 / 现象与操作 / 不确定度 · v' + APP_VERSION)
+          h('p', null, '6 个实验 + 自建专项 · 原理 / 操作 / 读图 / 数据处理 · v' + APP_VERSION)
         )
       ),
       h(
@@ -3238,7 +4419,7 @@ function Home(props) {
     { label: '累计答题', value: String(stats.attempts), sub: '次作答' },
     { label: '总正确率', value: stats.rate === null ? '—' : Math.round(stats.rate * 100) + '%', sub: stats.correct + ' / ' + stats.attempts },
     { label: '待复习错题', value: String(stats.wrongLeft), sub: '道' },
-    { label: '题库总量', value: String(totalQuestions), sub: '道 · ' + exps.length + ' 个实验 × 3 方向' },
+    { label: '题库总量', value: String(totalQuestions), sub: '道 · ' + exps.length + ' 个实验 × 4 方向' },
   ];
 
   return h(
@@ -3407,7 +4588,7 @@ function Home(props) {
                 'div',
                 { className: 'pl-grow' },
                 h('h3', null, exp.name),
-                h('p', null, total + ' 道题 · 3 个考点' + (exp.custom ? ' · 自定义（AI 生成）' : ''))
+                h('p', null, total + ' 道题 · 4 个考点' + (exp.custom ? ' · 自定义（AI 生成）' : ''))
               ),
               exp.custom
                 ? confirmId === exp.id
@@ -3548,6 +4729,58 @@ function OptionList(props) {
   );
 }
 
+function QuestionMedia(props) {
+  const q = props.q;
+  const figure = q.figure
+    ? h(
+        'figure',
+        { className: 'pl-figure' },
+        h('img', {
+          src: '/physics-lab/assets/' + encodeURIComponent(q.figure),
+          alt: q.figureAlt || '题图',
+          loading: 'lazy',
+        }),
+        q.figureCaption ? h('figcaption', null, q.figureCaption) : null
+      )
+    : null;
+  let table = null;
+  if (q.table && Array.isArray(q.table.rows) && q.table.rows.length) {
+    table = h(
+      'div',
+      { className: 'pl-table-wrap' },
+      q.table.caption ? h('div', { className: 'pl-table-caption' }, q.table.caption) : null,
+      h(
+        'table',
+        { className: 'pl-table' },
+        q.table.headers
+          ? h(
+              'thead',
+              null,
+              h(
+                'tr',
+                null,
+                q.table.headers.map((cell, i) => h('th', { key: i }, String(cell)))
+              )
+            )
+          : null,
+        h(
+          'tbody',
+          null,
+          q.table.rows.map((row, ri) =>
+            h(
+              'tr',
+              { key: ri },
+              row.map((cell, ci) => h('td', { key: ci }, String(cell)))
+            )
+          )
+        )
+      )
+    );
+  }
+  if (!figure && !table) return null;
+  return h(React.Fragment, null, figure, table);
+}
+
 function QuestionCard(props) {
   const q = props.q;
   const submitted = props.submitted;
@@ -3572,6 +4805,7 @@ function QuestionCard(props) {
       q.type === 'multi' ? h('span', { className: 'pl-chip' }, '全部选对才得分') : null
     ),
     h('p', { className: 'pl-qstem' }, q.stem),
+    h(QuestionMedia, { q }),
 
     q.type === 'numeric'
       ? h(
@@ -3926,6 +5160,7 @@ function AnswerSection(props) {
   return h(
     React.Fragment,
     null,
+    h(QuestionMedia, { q }),
     q.type === 'numeric'
       ? h(
           'div',
@@ -4590,6 +5825,12 @@ function buildAskPrompt(q, selected, ok, question) {
   lines.push('【实验】' + exp.name);
   lines.push('【考点】' + dim.name);
   lines.push('【题目】' + q.stem);
+  if (q.figure) lines.push('【题图】' + (q.figureCaption || q.figure));
+  if (q.table && Array.isArray(q.table.rows) && q.table.rows.length) {
+    lines.push('【数据表】' + (q.table.caption || ''));
+    if (q.table.headers) lines.push(q.table.headers.join('\t'));
+    q.table.rows.forEach((row) => lines.push(row.join('\t')));
+  }
   if (q.options && q.options.length) {
     lines.push('【选项】' + q.options.map((opt, i) => letterOf(i) + '. ' + opt).join('；'));
   }
@@ -4911,7 +6152,8 @@ function UploadDialog(props) {
         { className: 'pl-sub' },
         bank.questions.length + ' 道题 · 原理 ' + (counts.principle || 0) +
           ' · 操作 ' + (counts.phenomenon || 0) +
-          ' · 不确定度 ' + (counts.uncertainty || 0)
+          ' · 读图 ' + (counts.reading || 0) +
+          ' · 数据 ' + (counts.data || 0)
       ),
       h('p', { className: 'pl-sub' }, '现在可以在「按实验专项练习」里看到这个新专项。'),
       h('p', { className: 'pl-sub' }, 'AI 生成内容可能有误，请对照讲义核对；发现不合适可以直接删除这个专项。'),

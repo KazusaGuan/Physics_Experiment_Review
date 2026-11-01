@@ -2,7 +2,7 @@ BANK.push(
   {
     id: 'nmr-p1',
     exp: 'nmr',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '1H 核的 g = 5.5857，μN/h = 7.6225914 MHz/T。当磁场 B = 0.5000 T 时，其共振频率 ν 为多少 MHz？',
     answer: 21.29,
@@ -230,7 +230,7 @@ BANK.push(
   {
     id: 'nmr-u1',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '由多组 (ν, B0) 数据作 ν–B0 图，用最小二乘法求得斜率 k = 42.58 MHz/T。已知 μN/h = 7.6225914 MHz/T，求 1H 的 g 因子。',
     answer: 5.586,
@@ -247,7 +247,7 @@ BANK.push(
   {
     id: 'nmr-u2',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '某次测得 1H 的 g = 5.59，公认值为 5.5857。求相对误差（单位：%）。',
     answer: 0.08,
@@ -264,7 +264,7 @@ BANK.push(
   {
     id: 'nmr-u3',
     exp: 'nmr',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理 ν–B0 数据求 g 因子时，下列做法最合理的是：',
     options: [

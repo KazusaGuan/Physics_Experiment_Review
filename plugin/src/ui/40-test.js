@@ -24,6 +24,58 @@ function OptionList(props) {
   );
 }
 
+function QuestionMedia(props) {
+  const q = props.q;
+  const figure = q.figure
+    ? h(
+        'figure',
+        { className: 'pl-figure' },
+        h('img', {
+          src: '/physics-lab/assets/' + encodeURIComponent(q.figure),
+          alt: q.figureAlt || '题图',
+          loading: 'lazy',
+        }),
+        q.figureCaption ? h('figcaption', null, q.figureCaption) : null
+      )
+    : null;
+  let table = null;
+  if (q.table && Array.isArray(q.table.rows) && q.table.rows.length) {
+    table = h(
+      'div',
+      { className: 'pl-table-wrap' },
+      q.table.caption ? h('div', { className: 'pl-table-caption' }, q.table.caption) : null,
+      h(
+        'table',
+        { className: 'pl-table' },
+        q.table.headers
+          ? h(
+              'thead',
+              null,
+              h(
+                'tr',
+                null,
+                q.table.headers.map((cell, i) => h('th', { key: i }, String(cell)))
+              )
+            )
+          : null,
+        h(
+          'tbody',
+          null,
+          q.table.rows.map((row, ri) =>
+            h(
+              'tr',
+              { key: ri },
+              row.map((cell, ci) => h('td', { key: ci }, String(cell)))
+            )
+          )
+        )
+      )
+    );
+  }
+  if (!figure && !table) return null;
+  return h(React.Fragment, null, figure, table);
+}
+
 function QuestionCard(props) {
   const q = props.q;
   const submitted = props.submitted;
@@ -48,6 +100,7 @@ function QuestionCard(props) {
       q.type === 'multi' ? h('span', { className: 'pl-chip' }, '全部选对才得分') : null
     ),
     h('p', { className: 'pl-qstem' }, q.stem),
+    h(QuestionMedia, { q }),
 
     q.type === 'numeric'
       ? h(

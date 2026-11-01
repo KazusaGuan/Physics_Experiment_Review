@@ -183,6 +183,21 @@ const CSS = `
 .pl-qcard { padding: 20px; }
 .pl-qmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .pl-qstem { font-size: 15px; line-height: 1.7; font-weight: 500; margin: 0 0 16px; white-space: pre-wrap; }
+.pl-figure {
+  margin: 0 0 14px; padding: 10px; text-align: center;
+  border: 1px solid var(--dsw-alias-border-l1); border-radius: 10px;
+  background: var(--dsw-alias-bg-base);
+}
+.pl-figure img { display: block; max-width: 100%; max-height: 330px; margin: 0 auto; border-radius: 6px; }
+.pl-figure figcaption { margin-top: 7px; font-size: 11px; color: var(--dsw-alias-label-secondary); }
+.pl-table-wrap { margin: 0 0 16px; overflow-x: auto; }
+.pl-table-caption { margin-bottom: 5px; font-size: 11.5px; color: var(--dsw-alias-label-secondary); }
+.pl-table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+.pl-table th, .pl-table td {
+  padding: 5px 8px; text-align: center; white-space: nowrap;
+  border: 1px solid var(--dsw-alias-border-l1);
+}
+.pl-table th { background: var(--dsw-alias-bg-layer-2); font-weight: 600; }
 .pl-options { display: flex; flex-direction: column; gap: 8px; }
 .pl-option {
   display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left;

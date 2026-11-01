@@ -2,7 +2,7 @@ BANK.push(
   {
     id: 'polar-p1',
     exp: 'polar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '起偏器 P1 与检偏器 P2 的透光轴夹角 θ = 60°。若入射到 P2 的线偏振光强 I0 = 400 μW，求透过 P2 的光强 I（单位：μW）。',
     answer: 100,
@@ -95,7 +95,7 @@ BANK.push(
   {
     id: 'polar-p6',
     exp: 'polar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '用石英制作对 λ = 589.3 nm 的 λ/4 波片，已知 |no − ne| = 0.0091。求波片的最小厚度 d（单位：μm）。',
     answer: 16.2,
@@ -247,7 +247,7 @@ BANK.push(
   {
     id: 'polar-u1',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '验证马吕斯定律 I = I0cos²θ 时，光强对角度的微小变化在哪个 θ 附近最敏感？（填角度，单位：°）',
     answer: 45,
@@ -264,7 +264,7 @@ BANK.push(
   {
     id: 'polar-u2',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '线偏振光经 λ/4 波片（θ = 30°）后成为椭圆偏振光，再通过检偏器。求透射光强的最大值与最小值之比 Imax/Imin。',
     answer: 3,
@@ -281,7 +281,7 @@ BANK.push(
   {
     id: 'polar-u3',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '偏振片刻度盘的读数为 271°28′。若以“度”为单位并保留两位小数，应记为多少度？',
     answer: 271.47,
@@ -298,7 +298,7 @@ BANK.push(
   {
     id: 'polar-u4',
     exp: 'polar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '验证马吕斯定律时，用 I–cos²θ 作图（而不是 I–θ 作图）的主要好处是：',
     options: [

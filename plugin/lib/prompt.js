@@ -1,17 +1,25 @@
 // Prompt construction and strict validation for AI-generated question banks.
-const DIMS = ['principle', 'phenomenon', 'uncertainty']
+const DIMS = ['principle', 'phenomenon', 'reading', 'data']
 
 const DIM_ALIAS = {
   principle: 'principle',
   phenomenon: 'phenomenon',
-  uncertainty: 'uncertainty',
+  reading: 'reading',
+  data: 'data',
   原理: 'principle',
   实验原理: 'principle',
   操作: 'phenomenon',
   现象: 'phenomenon',
   现象与操作: 'phenomenon',
-  不确定度: 'uncertainty',
-  误差: 'uncertainty',
+  读图: 'reading',
+  仪器: 'reading',
+  读数: 'reading',
+  读图与仪器: 'reading',
+  数据处理: 'data',
+  数据: 'data',
+  不确定度: 'data',
+  误差: 'data',
+  有效数字: 'data',
 }
 
 const TYPE_ALIAS = {
@@ -129,7 +137,7 @@ export function buildGenerationPrompt(text, name) {
     '{"name":"实验名称（不超过12字）","badge":"一个汉字","questions":[题目对象...]}',
     '',
     '【题目对象】',
-    '- dim：只能是 "principle"（实验原理）、"phenomenon"（现象与正确操作）、"uncertainty"（不确定度与有效数字）之一。',
+    '- dim：只能是 "principle"（实验原理）、"phenomenon"（现象与正确操作）、"reading"（读图与仪器）、"data"（数据处理）之一。',
     '- type："single"（单选）、"multi"（多选）、"numeric"（数值计算）之一。',
     '- stem：题干，中文，简洁准确。',
     '- 选择题：options 为 3~6 个选项字符串；single 的 answer 是正确选项下标（从 0 开始）；multi 的 answer 是下标数组（2 个及以上，且不能全选）。',
@@ -137,12 +145,13 @@ export function buildGenerationPrompt(text, name) {
     '- 每题必须有 explain（2~4 句解题思路，含关键代入过程）、formula（关键公式，可为空字符串）、tip（最容易错的地方）、tags（1~3 个知识点标签）。',
     '',
     '【硬性要求】',
-    '1. 共 12 题：principle 4 题、phenomenon 4 题、uncertainty 4 题。',
+    '1. 共 12 题：principle 3 题、phenomenon 3 题、reading 3 题、data 3 题。',
     '2. 题型混合：至少 3 道 numeric，至少 3 道 multi，其余 single。',
     '3. 所有内容必须来自讲义：公式、仪器、步骤、注意事项、数据处理方法。不能出现“以上都对”“以上都不对”这类选项。',
-    '4. 计算题数据自洽、答案唯一，且能被计算器验证；不确定度题要给出具体数字或明确的评定步骤。',
-    '5. 选项之间要有区分度，错误选项应是学生常见的错误理解。',
-    '6. 不要输出 JSON 之外的任何文字。',
+    '4. 读图题描述仪器读数、装置结构、曲线或数据表；数据处理题给出具体数据并计算；不确定度题给出明确的评定步骤。',
+    '5. 计算题数据自洽、答案唯一，且能被计算器验证。',
+    '6. 选项之间要有区分度，错误选项应是学生常见的错误理解。',
+    '7. 不要输出 JSON 之外的任何文字。',
     '',
     '【实验名称建议】' + docName,
     '',
@@ -178,7 +187,7 @@ export function parseGeneratedBank(raw, fallbackName, expId) {
   if (questions.length < 6) {
     throw new Error('模型返回的有效题目不足（' + questions.length + ' 道），请重试')
   }
-  const counts = { principle: 0, phenomenon: 0, uncertainty: 0 }
+  const counts = { principle: 0, phenomenon: 0, reading: 0, data: 0 }
   questions.forEach((question) => { counts[question.dim] += 1 })
   const missing = DIMS.filter((dim) => counts[dim] === 0)
   if (missing.length) {

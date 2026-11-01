@@ -19,7 +19,7 @@ function Home(props) {
     { label: '累计答题', value: String(stats.attempts), sub: '次作答' },
     { label: '总正确率', value: stats.rate === null ? '—' : Math.round(stats.rate * 100) + '%', sub: stats.correct + ' / ' + stats.attempts },
     { label: '待复习错题', value: String(stats.wrongLeft), sub: '道' },
-    { label: '题库总量', value: String(totalQuestions), sub: '道 · ' + exps.length + ' 个实验 × 3 方向' },
+    { label: '题库总量', value: String(totalQuestions), sub: '道 · ' + exps.length + ' 个实验 × 4 方向' },
   ];
 
   return h(
@@ -188,7 +188,7 @@ function Home(props) {
                 'div',
                 { className: 'pl-grow' },
                 h('h3', null, exp.name),
-                h('p', null, total + ' 道题 · 3 个考点' + (exp.custom ? ' · 自定义（AI 生成）' : ''))
+                h('p', null, total + ' 道题 · 4 个考点' + (exp.custom ? ' · 自定义（AI 生成）' : ''))
               ),
               exp.custom
                 ? confirmId === exp.id

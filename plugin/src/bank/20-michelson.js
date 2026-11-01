@@ -2,7 +2,7 @@ BANK.push(
   {
     id: 'michelson-p1',
     exp: 'michelson',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '测量 He–Ne 激光波长：移动反射镜使圆环“涌出”50 个，测得镜面移动距离 Δd = 0.01580 mm。求激光波长 λ（单位：nm）。',
     answer: 632,
@@ -95,7 +95,7 @@ BANK.push(
   {
     id: 'michelson-p6',
     exp: 'michelson',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '设 M1 与虚像之间的距离 d = 0.1000 mm，入射光波长 λ = 632.8 nm，圆心处（i = 0）的干涉级次 k 约为多少？（取整数）',
     answer: 316,
@@ -247,7 +247,7 @@ BANK.push(
   {
     id: 'michelson-u1',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '测得移动镜位置 d1…d10（每涌出 50 环读一次，共 10 个读数），用逐差法处理时应：',
     options: [
@@ -266,7 +266,7 @@ BANK.push(
   {
     id: 'michelson-u2',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: 'λ = 2Δd/N，其中环数 N = 50 为准确计数（无误差），Δd = 0.01580 mm，其测量不确定度 u(Δd) = 0.00010 mm。求 λ 的相对不确定度（单位：%）。',
     answer: 0.63,
@@ -283,7 +283,7 @@ BANK.push(
   {
     id: 'michelson-u3',
     exp: 'michelson',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '测得 λ = 632.8 nm，其不确定度 U = 4 nm。按“不确定度取 1 位有效数字”的规范，结果应写成：',
     options: [

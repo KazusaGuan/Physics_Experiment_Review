@@ -1,10 +1,16 @@
 /** Host half: document parsing + AI question-bank generation over a localhost route. */
+import { readFile } from 'node:fs/promises'
+import { dirname, extname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { extractText, ExtractError } from './lib/extract.js'
 import { buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 
-const VERSION = '1.1.2'
+const VERSION = '1.2.0'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
+const ASSETS_PATH = '/physics-lab/assets/'
+const ROOT_DIR = dirname(fileURLToPath(import.meta.url))
+const ASSETS_DIR = join(ROOT_DIR, 'assets', 'figures')
 const MAX_BODY = 24 * 1024 * 1024
 const MAX_TEXT = 30000
 const SYSTEM_PROMPT = [
@@ -205,6 +211,54 @@ async function handleGenerate(ctx, req, res) {
   }
 }
 
+const MIME = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+}
+
+async function handleAsset(req, res) {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.writeHead(405, { allow: 'GET, HEAD' })
+    res.end()
+    return
+  }
+  let name = ''
+  try {
+    const raw = (req.url || '').split('?')[0]
+    const rel = raw.indexOf(ASSETS_PATH) === 0 ? raw.slice(ASSETS_PATH.length) : raw.replace(/^\/+/, '')
+    name = decodeURIComponent(rel)
+  } catch (err) {
+    name = ''
+  }
+  if (!/^[A-Za-z0-9._-]+$/.test(name)) {
+    res.writeHead(404)
+    res.end()
+    return
+  }
+  const type = MIME[extname(name).toLowerCase()]
+  if (!type) {
+    res.writeHead(404)
+    res.end()
+    return
+  }
+  try {
+    const data = await readFile(join(ASSETS_DIR, name))
+    res.writeHead(200, {
+      'content-type': type,
+      'cache-control': 'public, max-age=3600',
+      'content-length': data.length,
+    })
+    if (req.method === 'HEAD') res.end()
+    else res.end(data)
+  } catch (err) {
+    res.writeHead(404)
+    res.end()
+  }
+}
+
 export function apply(ctx) {
   const web = ctx.get('webServer')
   if (!web) return
@@ -221,6 +275,13 @@ export function apply(ctx) {
           model: selection ? selection.provider + '/' + selection.model : null,
         })
       },
+    })
+  )
+  ctx.effect(() =>
+    web.register({
+      kind: 'prefix',
+      path: '/physics-lab/assets',
+      handler: (req, res) => handleAsset(req, res),
     })
   )
   ctx.effect(() =>

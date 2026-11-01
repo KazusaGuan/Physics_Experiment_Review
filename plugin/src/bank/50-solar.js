@@ -21,7 +21,7 @@ BANK.push(
   {
     id: 'solar-p2',
     exp: 'solar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '某次测量中太阳能电池输出电压 U = 10.8 V、电流 I = 68.0 mA，求输出功率 P（单位：mW）。',
     answer: 734,
@@ -95,7 +95,7 @@ BANK.push(
   {
     id: 'solar-p6',
     exp: 'solar',
-    dim: 'principle',
+    dim: 'data',
     type: 'numeric',
     stem: '超级电容 C = 2.35 F，充电至 U = 11.0 V，求储存的能量 E（单位：J）。',
     answer: 142,
@@ -285,7 +285,7 @@ BANK.push(
   {
     id: 'solar-u1',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '测得 U = 10.80 V、u(U) = 0.02 V；I = 68.0 mA、u(I) = 0.5 mA。P = UI，求 P 的相对不确定度（单位：%）。',
     answer: 0.76,
@@ -302,7 +302,7 @@ BANK.push(
   {
     id: 'solar-u2',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: 'U = 10.80 V（4 位有效数字），I = 68.0 mA（3 位有效数字），按有效数字运算规则，P = UI 应保留几位有效数字？',
     options: [
@@ -321,7 +321,7 @@ BANK.push(
   {
     id: 'solar-u3',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'single',
     stem: '处理太阳能电池 I–V 数据时，还要作 P–U 曲线，其主要目的是：',
     options: [
@@ -340,7 +340,7 @@ BANK.push(
   {
     id: 'solar-u4',
     exp: 'solar',
-    dim: 'uncertainty',
+    dim: 'data',
     type: 'numeric',
     stem: '超级电容储能 E = ½CU²。若 C 的相对不确定度为 2.0%，U 的相对不确定度为 1.0%，求 E 的相对不确定度（单位：%）。',
     answer: 2.8,

@@ -7,6 +7,7 @@ function AnswerSection(props) {
   return h(
     React.Fragment,
     null,
+    h(QuestionMedia, { q }),
     q.type === 'numeric'
       ? h(
           'div',

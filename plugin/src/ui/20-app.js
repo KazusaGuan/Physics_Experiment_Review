@@ -251,7 +251,7 @@ function Shell(props) {
           'div',
           null,
           h('h1', null, '大物实验 · 笔试冲刺'),
-          h('p', null, '5 个实验 + 自建专项 · 原理 / 现象与操作 / 不确定度 · v' + APP_VERSION)
+          h('p', null, '6 个实验 + 自建专项 · 原理 / 操作 / 读图 / 数据处理 · v' + APP_VERSION)
         )
       ),
       h(

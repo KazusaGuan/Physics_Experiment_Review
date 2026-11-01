@@ -9,6 +9,12 @@ function buildAskPrompt(q, selected, ok, question) {
   lines.push('【实验】' + exp.name);
   lines.push('【考点】' + dim.name);
   lines.push('【题目】' + q.stem);
+  if (q.figure) lines.push('【题图】' + (q.figureCaption || q.figure));
+  if (q.table && Array.isArray(q.table.rows) && q.table.rows.length) {
+    lines.push('【数据表】' + (q.table.caption || ''));
+    if (q.table.headers) lines.push(q.table.headers.join('\t'));
+    q.table.rows.forEach((row) => lines.push(row.join('\t')));
+  }
   if (q.options && q.options.length) {
     lines.push('【选项】' + q.options.map((opt, i) => letterOf(i) + '. ' + opt).join('；'));
   }

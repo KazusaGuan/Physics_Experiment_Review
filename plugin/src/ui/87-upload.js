@@ -131,7 +131,8 @@ function UploadDialog(props) {
         { className: 'pl-sub' },
         bank.questions.length + ' 道题 · 原理 ' + (counts.principle || 0) +
           ' · 操作 ' + (counts.phenomenon || 0) +
-          ' · 不确定度 ' + (counts.uncertainty || 0)
+          ' · 读图 ' + (counts.reading || 0) +
+          ' · 数据 ' + (counts.data || 0)
       ),
       h('p', { className: 'pl-sub' }, '现在可以在「按实验专项练习」里看到这个新专项。'),
       h('p', { className: 'pl-sub' }, 'AI 生成内容可能有误，请对照讲义核对；发现不合适可以直接删除这个专项。'),
