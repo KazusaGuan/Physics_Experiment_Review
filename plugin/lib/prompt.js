@@ -72,7 +72,7 @@ function cleanName(value, fallback) {
   return Array.from(text).slice(0, 20).join('')
 }
 
-function normalizeQuestion(item, expId, index) {
+function normalizeQuestion(item, expId, index, images) {
   if (!item || typeof item !== 'object') return null
   const stem = str(item.stem, 600)
   if (stem.length < 6) return null
@@ -94,6 +94,15 @@ function normalizeQuestion(item, expId, index) {
     tags: Array.isArray(item.tags)
       ? item.tags.map((tag) => str(tag, 30)).filter(Boolean).slice(0, 4)
       : [],
+  }
+  if (item.figure !== undefined && item.figure !== null && item.figure !== '') {
+    const figIndex = Number(item.figure)
+    if (!Number.isInteger(figIndex) || figIndex < 1 || figIndex > images.length) return null
+    const image = images[figIndex - 1]
+    if (image.suitable === false) return null
+    base.figure = image.filename
+    base.figureAlt = str(item.figureNote, 300) || image.description || '附图 ' + figIndex
+    base.figureCaption = str(item.figureCaption, 200) || image.description || '附图 ' + figIndex
   }
   if (type === 'numeric') {
     const answer = Number(item.answer)
@@ -129,9 +138,42 @@ function normalizeQuestion(item, expId, index) {
   return Object.assign({}, base, { options, answer })
 }
 
-export function buildGenerationPrompt(text, name) {
-  const docName = str(name, 40) || '实验讲义'
+export function buildFigureAnalysisPrompt(name, count) {
   return [
+    '你会收到 ' + count + ' 张实验讲义插图，按消息中的顺序编号为 附图1..附图' + count + '。',
+    '请只根据你实际看到的画面逐图描述，不要根据文字推测图中不存在的内容。',
+    '只输出 JSON：{"figures":[{"index":1,"description":"...","suitable":true}, ...]}',
+    '- index：1 到 ' + count + '；',
+    '- description：1~2 句，写清图中实际可见的仪器、读数、刻度、曲线、电路、光路、表格或装置连接；',
+    '- suitable：这张图是否适合出题；公式截图、图标、装饰图、模糊不清或与实验无关的图填 false。',
+    '每张图都要有一项，不要遗漏。'
+  ].join('\n')
+}
+
+export function parseFigureAnalysis(raw, count) {
+  const data = JSON.parse(extractJson(raw))
+  const list = Array.isArray(data && data.figures) ? data.figures : []
+  const map = {}
+  list.forEach((item) => {
+    const index = Number(item && item.index)
+    if (!Number.isInteger(index) || index < 1 || index > count) return
+    map[index] = {
+      index,
+      description: str(item.description, 400),
+      suitable: item.suitable !== false && !!str(item.description, 400),
+    }
+  })
+  const result = []
+  for (let i = 1; i <= count; i += 1) {
+    result.push(map[i] || { index: i, description: '', suitable: false })
+  }
+  return result
+}
+
+export function buildGenerationPrompt(text, name, figures = []) {
+  const docName = str(name, 40) || '实验讲义'
+  const usable = figures.filter((figure) => figure.suitable !== false && figure.description)
+  const lines = [
     '请阅读下面的实验讲义，出一套用于期末笔试复习的题目。',
     '',
     '【输出格式】只输出一个 JSON 对象：',
@@ -144,23 +186,48 @@ export function buildGenerationPrompt(text, name) {
     '- 选择题：options 为 3~6 个选项字符串；single 的 answer 是正确选项下标（从 0 开始）；multi 的 answer 是下标数组（2 个及以上，且不能全选）。',
     '- 计算题：answer 为数字，unit 为单位字符串（可为空），tol 为相对容差（0.01~0.05），sigfig 为有效数字位数，hint 为一句提示。',
     '- 每题必须有 explain（2~4 句解题思路，含关键代入过程）、formula（关键公式，可为空字符串）、tip（最容易错的地方）、tags（1~3 个知识点标签）。',
-    '',
-    '【硬性要求】',
-    '1. 共 12 题：principle 3 题、phenomenon 3 题、reading 3 题、data 3 题。',
-    '2. 题型混合：至少 3 道 numeric，至少 3 道 multi，其余 single。',
-    '3. 所有内容必须来自讲义：公式、仪器、步骤、注意事项、数据处理方法。不能出现“以上都对”“以上都不对”这类选项。',
-    '4. 读图题描述仪器读数、装置结构、曲线或数据表；数据处理题给出具体数据并计算；不确定度题给出明确的评定步骤。',
-    '5. 计算题数据自洽、答案唯一，且能被计算器验证。',
-    '6. 选项之间要有区分度，错误选项应是学生常见的错误理解。',
-    '7. 不要输出 JSON 之外的任何文字。',
+  ]
+  if (usable.length) {
+    lines.push(
+      '- figure（可选）：附图编号（1..' + figures.length + ' 的整数），只有确实需要看图的题才填；figureNote：图中看到什么、为什么必须看图；figureCaption：用附图清单里的 description，不要写文档图号。'
+    )
+  }
+  lines.push('', '【硬性要求】', '1. 共 12 题：principle 3 题、phenomenon 3 题、reading 3 题、data 3 题。')
+  lines.push('2. 题型混合：至少 3 道 numeric，至少 3 道 multi，其余 single。')
+  lines.push('3. 所有内容必须来自讲义：公式、仪器、步骤、注意事项、数据处理方法。不能出现“以上都对”“以上都不对”这类选项。')
+  if (usable.length) {
+    lines.push(
+      '4. 本题附带 ' + figures.length + ' 张文档插图，必须先看附图清单，再决定怎么出题：',
+      ...figures.map(
+        (figure) =>
+          '   附图' + figure.index + '：' + (figure.description || '（无法识别）') +
+          (figure.suitable === false ? '（不适合出题，不要使用）' : '')
+      ),
+      '   - 只能引用 suitable=true 的附图；figure 填附图编号，题干写“如附图k所示”；',
+      '   - 至少 2 道题必须使用附图；题目必须真正依赖图（读数、认器材、看曲线、看电路/光路），不能只是“如图”然后问文字；',
+      '   - figureCaption 用清单里的 description，不要写“图1/图5”这类文档图号，避免和附图编号混淆；',
+      '   - 先想清楚“从这张图能问什么”，再决定 dim：看图读数 → reading；看图认器材/操作 → phenomenon；看图理解原理/曲线 → principle 或 data；',
+      '   - 不要为了凑 reading 把纯文字题硬说成读图题；不依赖图片的题不要填 figure。'
+    )
+  } else {
+    lines.push(
+      '4. 如果没有可用图片，读图题用文字描述仪器读数、装置结构、曲线或数据表；不要编造图片，也不要填 figure。'
+    )
+  }
+  lines.push(
+    '5. 数据处理题的 stem 和 hint 不要直接给出解题公式；公式只能放在 explain 和 formula 字段里。',
+    '6. 计算题数据自洽、答案唯一，且能被计算器验证。',
+    '7. 选项之间要有区分度，错误选项应是学生常见的错误理解。',
+    '8. 不要输出 JSON 之外的任何文字。',
     '',
     '【实验名称建议】' + docName,
     '',
     '【讲义正文】',
     '"""',
     text,
-    '"""',
-  ].join('\n')
+    '"""'
+  )
+  return lines.join('\n')
 }
 
 function extractJson(raw) {
@@ -174,7 +241,7 @@ function extractJson(raw) {
   return text
 }
 
-export function parseGeneratedBank(raw, fallbackName, expId) {
+export function parseGeneratedBank(raw, fallbackName, expId, images = []) {
   const data = JSON.parse(extractJson(raw))
   if (!data || typeof data !== 'object') throw new Error('模型返回的内容不是对象')
   const name = cleanName(data.name, fallbackName)
@@ -182,7 +249,7 @@ export function parseGeneratedBank(raw, fallbackName, expId) {
   const list = Array.isArray(data.questions) ? data.questions : []
   const questions = []
   list.forEach((item, index) => {
-    const normalized = normalizeQuestion(item, expId, questions.length)
+    const normalized = normalizeQuestion(item, expId, questions.length, images)
     if (normalized) questions.push(normalized)
   })
   if (questions.length < 6) {
@@ -193,6 +260,12 @@ export function parseGeneratedBank(raw, fallbackName, expId) {
   const missing = DIMS.filter((dim) => counts[dim] === 0)
   if (missing.length) {
     throw new Error('模型返回的题目缺少考点：' + missing.join('、') + '，请重试')
+  }
+  if (images.length) {
+    const withFigure = questions.filter((question) => question.figure).length
+    if (withFigure < 2) {
+      throw new Error('模型没有从文档图片出题（只有 ' + withFigure + ' 道带图），请重试')
+    }
   }
   return {
     name,

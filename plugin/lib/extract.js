@@ -1,10 +1,45 @@
 // Document text extraction for the physics-lab bundle (Host side).
 import { inflateRawSync } from 'node:zlib'
+import { createHash } from 'node:crypto'
 import { existsSync, readdirSync } from 'node:fs'
-import { readFile, writeFile, unlink } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rm, writeFile, unlink } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
 import { homedir, tmpdir } from 'node:os'
 import { join } from 'node:path'
+
+const PDF_IMAGE_SCRIPT = [
+  'import sys, io, os, json',
+  'try:',
+  '    from pypdf import PdfReader',
+  'except Exception:',
+  '    try:',
+  '        from PyPDF2 import PdfReader',
+  '    except Exception:',
+  '        sys.exit(0)',
+  'from PIL import Image',
+  'path, outdir = sys.argv[1], sys.argv[2]',
+  'reader = PdfReader(path)',
+  'result = []',
+  'for pno, page in enumerate(reader.pages):',
+  '    try:',
+  '        images = list(page.images)',
+  '    except Exception:',
+  '        continue',
+  '    for idx, img in enumerate(images):',
+  '        try:',
+  '            im = Image.open(io.BytesIO(img.data))',
+  '            im.load()',
+  '        except Exception:',
+  '            continue',
+  '        if im.width < 180 or im.height < 110:',
+  '            continue',
+  '        im = im.convert("RGB")',
+  '        name = "p%02d_%02d.png" % (pno + 1, idx)',
+  '        out = os.path.join(outdir, name)',
+  '        im.save(out, "PNG")',
+  '        result.append({"file": name, "w": im.width, "h": im.height, "bytes": os.path.getsize(out)})',
+  'sys.stdout.write(json.dumps(result))',
+].join('\n')
 
 export class ExtractError extends Error {
   constructor(message, code = 'extract-failed') {
@@ -239,6 +274,109 @@ async function extractPdf(buffer) {
   } finally {
     try { await unlink(path) } catch (err) { /* ignore */ }
   }
+}
+
+function imageMeta(buffer) {
+  if (buffer.length < 24) return null
+  if (buffer.readUInt32BE(0) === 0x89504e47) {
+    return { mediaType: 'image/png', width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) }
+  }
+  if (buffer[0] === 0xff && buffer[1] === 0xd8) {
+    let i = 2
+    while (i + 9 < buffer.length) {
+      if (buffer[i] !== 0xff) { i += 1; continue }
+      const marker = buffer[i + 1]
+      if (marker === 0xd8 || marker === 0xd9 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) {
+        i += 2
+        continue
+      }
+      if (i + 4 > buffer.length) break
+      const size = buffer.readUInt16BE(i + 2)
+      if (size < 2) break
+      if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+        if (i + 9 > buffer.length) break
+        return { mediaType: 'image/jpeg', height: buffer.readUInt16BE(i + 5), width: buffer.readUInt16BE(i + 7) }
+      }
+      i += 2 + size
+    }
+    return null
+  }
+  if (buffer.subarray(0, 3).toString('latin1') === 'GIF') {
+    return { mediaType: 'image/gif', width: buffer.readUInt16LE(6), height: buffer.readUInt16LE(8) }
+  }
+  return null
+}
+
+function extractImagesFromDocx(buffer) {
+  const entries = readZipEntries(buffer)
+  const out = []
+  const seen = new Set()
+  Object.keys(entries).forEach((name) => {
+    if (name.indexOf('word/media/') !== 0) return
+    const ext = (name.split('.').pop() || '').toLowerCase()
+    if (['png', 'jpg', 'jpeg', 'gif'].indexOf(ext) === -1) return
+    const entry = entries[name]
+    let data
+    try {
+      data = entry.method === 8 ? inflateRawSync(entry.raw) : entry.raw
+    } catch (err) {
+      return
+    }
+    const meta = imageMeta(data)
+    if (!meta || meta.width < 180 || meta.height < 110 || data.length < 6000) return
+    const hash = createHash('sha1').update(data).digest('hex')
+    if (seen.has(hash)) return
+    seen.add(hash)
+    out.push({ data, mediaType: meta.mediaType, name: name.split('/').pop(), width: meta.width, height: meta.height })
+  })
+  return out.sort((a, b) => b.width * b.height - a.width * a.height).slice(0, 8)
+}
+
+async function extractImagesFromPdf(buffer) {
+  const stamp = process.pid + '-' + Date.now()
+  const path = join(tmpdir(), 'physics-lab-img-' + stamp + '.pdf')
+  const outdir = join(tmpdir(), 'physics-lab-img-' + stamp)
+  await mkdir(outdir, { recursive: true })
+  await writeFile(path, buffer)
+  try {
+    for (const candidate of pythonCandidates()) {
+      const result = await runProcess(
+        candidate.command,
+        candidate.args.concat(['-c', PDF_IMAGE_SCRIPT, path, outdir]),
+        60000
+      )
+      if (result.code === 0) {
+        let list = []
+        try { list = JSON.parse(result.stdout) } catch (err) { list = [] }
+        const files = []
+        for (const item of list) {
+          try {
+            const data = await readFile(join(outdir, item.file))
+            files.push({ data, mediaType: 'image/png', name: item.file, width: item.w, height: item.h })
+          } catch (err) {
+            /* skip */
+          }
+        }
+        return files.sort((a, b) => b.width * b.height - a.width * a.height).slice(0, 8)
+      }
+    }
+    return []
+  } finally {
+    try { await unlink(path) } catch (err) { /* ignore */ }
+    try { await rm(outdir, { recursive: true, force: true }) } catch (err) { /* ignore */ }
+  }
+}
+
+export async function extractImages(buffer, filename) {
+  if (!buffer || !buffer.length) return []
+  const ext = (String(filename || '').split('.').pop() || '').toLowerCase()
+  if (ext === 'docx' || (buffer.length >= 4 && buffer.readUInt32LE(0) === 0x04034b50)) {
+    return extractImagesFromDocx(buffer)
+  }
+  if (ext === 'pdf' || buffer.subarray(0, 4).toString('latin1') === '%PDF') {
+    return extractImagesFromPdf(buffer)
+  }
+  return []
 }
 
 export async function extractText(buffer, filename) {

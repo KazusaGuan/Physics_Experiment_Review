@@ -132,7 +132,8 @@ function UploadDialog(props) {
         bank.questions.length + ' 道题 · 原理 ' + (counts.principle || 0) +
           ' · 操作 ' + (counts.phenomenon || 0) +
           ' · 读图 ' + (counts.reading || 0) +
-          ' · 数据 ' + (counts.data || 0)
+          ' · 数据 ' + (counts.data || 0) +
+          (bank.sourceImages ? ' · 含 ' + bank.sourceImages + ' 张文档图' : '')
       ),
       h('p', { className: 'pl-sub' }, '现在可以在「按实验专项练习」里看到这个新专项。'),
       h('p', { className: 'pl-sub' }, 'AI 生成内容可能有误，请对照讲义核对；发现不合适可以直接删除这个专项。'),
@@ -245,7 +246,7 @@ function UploadDialog(props) {
         'p',
         { className: 'pl-ask-note' },
         '生成会调用当前默认模型，约 20~60 秒；题目会保存为新的实验专项，可随时删除。' +
-          '上传文档目前只提取文字，读图题会以文字描述的仪器/读数题呈现，不会自动带入文档插图。' +
+          '上传文档会抽取插图，AI 先逐图分析再出题；若没有可用图片，读图题会以文字描述呈现。' +
           'AI 生成内容可能有误，请对照讲义核对。' +
           (mode === 'file' ? ' PDF 若解析失败，可改用「粘贴文本」。' : '')
       ),

@@ -1,18 +1,21 @@
 /** Host half: document parsing + AI question-bank generation over a localhost route. */
-import { readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { homedir } from 'node:os'
 import { dirname, extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { extractText, ExtractError } from './lib/extract.js'
-import { buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
+import { extractText, extractImages, ExtractError } from './lib/extract.js'
+import { buildFigureAnalysisPrompt, parseFigureAnalysis, buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
 
-const VERSION = '1.2.1'
+const VERSION = '1.3.0'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const ASSETS_PATH = '/physics-lab/assets/'
 const ROOT_DIR = dirname(fileURLToPath(import.meta.url))
 const ASSETS_DIR = join(ROOT_DIR, 'assets', 'figures')
+const USER_ASSETS_DIR = join(homedir(), '.dsh', 'physics-lab-assets')
 const MAX_BODY = 24 * 1024 * 1024
 const MAX_TEXT = 30000
+const MAX_IMAGES = 6
 const SYSTEM_PROMPT = [
   '你是大学物理实验课程的命题老师，擅长把实验讲义转化为笔试复习题。',
   '你只输出一个合法的 JSON 对象，不输出 Markdown 代码块、解释、前后缀或注释。',
@@ -60,7 +63,7 @@ function pickSelection(ctx) {
   }
 }
 
-async function callModel(ctx, prompt) {
+async function callModel(ctx, prompt, imageRefs = [], maxTokens = 8000) {
   const llm = ctx.get('llm')
   if (!llm || typeof llm.stream !== 'function') {
     const error = new Error('LLM 服务不可用，无法生成题目')
@@ -80,13 +83,15 @@ async function callModel(ctx, prompt) {
   let failure = ''
   let finishKind = ''
   try {
+    const content = [{ type: 'text', text: prompt }]
+    imageRefs.forEach((ref) => content.push({ type: 'image', attachment: ref }))
     const stream = llm.stream({
       provider: selection.provider,
       model: selection.model,
       reasoningEffort: 'off',
       system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: [{ type: 'text', text: prompt }] }],
-      maxTokens: 8000,
+      messages: [{ role: 'user', content }],
+      maxTokens,
       temperature: 0.35,
       signal: controller.signal,
     })
@@ -153,7 +158,9 @@ async function handleGenerate(ctx, req, res) {
     }
     const filename = cleanFileName(body.filename)
     const userName = typeof body.name === 'string' ? body.name.trim().slice(0, 20) : ''
+    const expId = 'custom-' + Date.now().toString(36)
     let text = typeof body.text === 'string' ? body.text : ''
+    let images = []
     if (!text && typeof body.data === 'string' && body.data) {
       let buffer
       try {
@@ -162,6 +169,7 @@ async function handleGenerate(ctx, req, res) {
         throw new Error('文件内容解码失败')
       }
       text = await extractText(buffer, filename)
+      images = await extractImages(buffer, filename)
     }
     text = String(text || '')
       .replace(/\r\n?/g, '\n')
@@ -175,16 +183,77 @@ async function handleGenerate(ctx, req, res) {
     }
     const clipped = text.slice(0, MAX_TEXT)
     const fallbackName = userName || stemName(filename)
-    const expId = 'custom-' + Date.now().toString(36)
-    let prompt = buildGenerationPrompt(clipped, fallbackName)
-    let raw = await callModel(ctx, prompt)
+
+    const selected = images.slice(0, MAX_IMAGES)
+    let imageRefs = []
+    let imageFiles = []
+    const attachments = ctx.get('attachments')
+    if (attachments && selected.length) {
+      try {
+        const limits = attachments.imageLimits || {}
+        const limit = Math.min(MAX_IMAGES, Number(limits.maxImagesPerMessage) || MAX_IMAGES)
+        const usable = selected.slice(0, limit)
+        imageRefs = await attachments.saveImages(
+          usable.map((image) => ({
+            data: new Uint8Array(image.data),
+            mediaType: image.mediaType,
+            name: image.name,
+          }))
+        )
+        if (imageRefs.length !== usable.length) {
+          imageRefs = []
+        } else {
+          await mkdir(USER_ASSETS_DIR, { recursive: true })
+          for (let i = 0; i < usable.length; i += 1) {
+            const image = usable[i]
+            const ext = image.mediaType === 'image/png' ? 'png' : image.mediaType === 'image/jpeg' ? 'jpg' : 'gif'
+            const outName = expId + '-' + (i + 1) + '.' + ext
+            await writeFile(join(USER_ASSETS_DIR, outName), image.data)
+            imageFiles.push({ filename: outName, width: image.width, height: image.height })
+          }
+        }
+      } catch (err) {
+        imageRefs = []
+        imageFiles = []
+        console.warn('[physics-lab] image attach failed:', err && err.message ? err.message : err)
+      }
+    }
+
+    if (imageRefs.length) {
+      try {
+        const analysisPrompt = buildFigureAnalysisPrompt(fallbackName, imageRefs.length)
+        const analysisRaw = await callModel(ctx, analysisPrompt, imageRefs, 2500)
+        const analysis = parseFigureAnalysis(analysisRaw, imageRefs.length)
+        imageFiles = imageFiles.map((file, index) =>
+          Object.assign({}, file, {
+            description: analysis[index].description,
+            suitable: analysis[index].suitable,
+          })
+        )
+        const usable = imageFiles.filter((file) => file.suitable !== false && file.description)
+        if (!usable.length) {
+          imageRefs = []
+          imageFiles = []
+        }
+      } catch (err) {
+        imageRefs = []
+        imageFiles = []
+        console.warn('[physics-lab] image analysis failed:', err && err.message ? err.message : err)
+      }
+    }
+
+    let prompt = buildGenerationPrompt(clipped, fallbackName, imageFiles)
+    let raw = await callModel(ctx, prompt, imageRefs)
     let parsed
     try {
-      parsed = parseGeneratedBank(raw, fallbackName, expId)
+      parsed = parseGeneratedBank(raw, fallbackName, expId, imageFiles)
     } catch (firstError) {
-      prompt = prompt + '\n\n注意：上一次输出不是合法 JSON 或题目不完整。请严格只输出 JSON 对象，不要代码块或解释。'
-      raw = await callModel(ctx, prompt)
-      parsed = parseGeneratedBank(raw, fallbackName, expId)
+      prompt =
+        prompt +
+        '\n\n注意：上一次输出不是合法 JSON，或没有按要求从文档图片出题。请严格只输出 JSON 对象；' +
+        (imageRefs.length ? '必须至少有 2 道题使用所附图片，并填写 figure 图号与 figureNote。' : '')
+      raw = await callModel(ctx, prompt, imageRefs)
+      parsed = parseGeneratedBank(raw, fallbackName, expId, imageFiles)
     }
     if (userName) parsed.name = userName
     const bank = {
@@ -194,6 +263,7 @@ async function handleGenerate(ctx, req, res) {
       accent: 'brand',
       custom: true,
       source: filename,
+      sourceImages: imageFiles.length,
       createdAt: Date.now(),
       questions: parsed.questions,
     }
@@ -245,7 +315,12 @@ async function handleAsset(req, res) {
     return
   }
   try {
-    const data = await readFile(join(ASSETS_DIR, name))
+    let data
+    try {
+      data = await readFile(join(USER_ASSETS_DIR, name))
+    } catch (err) {
+      data = await readFile(join(ASSETS_DIR, name))
+    }
     res.writeHead(200, {
       'content-type': type,
       'cache-control': 'public, max-age=3600',
