@@ -316,6 +316,42 @@ function extractJson(raw) {
   return text
 }
 
+export function buildFigureCheckPrompt(question) {
+  const options = question.options
+    .map((option, index) => String.fromCharCode(65 + index) + '. ' + option)
+    .join('\n')
+  return [
+    '只根据附带的这一张图判断，不要参考讲义文字或题目解析。',
+    '',
+    '题目：' + question.stem,
+    '选项：',
+    options,
+    '',
+    '待核对：正确选项是「' + question.options[question.answer] + '」。',
+    '请只输出 JSON：{"match":true,"reading":"图中实际读数或部件","reason":"图中哪个刻度/指针/游标/曲线/标记决定"}',
+    '判断标准：',
+    '- 只有图中确实能读出与待核对选项一致的值/部件，match 才为 true；',
+    '- 图中读数不同、看不清、需要靠文字猜，match 为 false；',
+    '- 不要因为题目或解析说它正确就判 true。'
+  ].join('\n')
+}
+
+export function parseFigureCheck(raw) {
+  const data = JSON.parse(extractJson(raw))
+  return {
+    match: !!data && data.match === true,
+    reading: str(data && data.reading, 100),
+    reason: str(data && data.reason, 300),
+  }
+}
+
+export function readingsMatch(left, right) {
+  const a = normalizeReading(left)
+  const b = normalizeReading(right)
+  if (!a || !b) return false
+  return a === b || a.indexOf(b) !== -1 || b.indexOf(a) !== -1
+}
+
 export function parseGeneratedBank(raw, fallbackName, expId, images = []) {
   const data = JSON.parse(extractJson(raw))
   if (!data || typeof data !== 'object') throw new Error('模型返回的内容不是对象')
@@ -341,7 +377,7 @@ export function parseGeneratedBank(raw, fallbackName, expId, images = []) {
     const readingWithFigure = questions.filter(
       (question) => question.dim === 'reading' && question.figure
     ).length
-    if (withFigure < 2 || readingWithFigure < 2) {
+    if (withFigure < 1 || readingWithFigure < 1) {
       throw new Error(
         '模型没有按要求从文档图片出读图题（带图 ' + withFigure + ' 道，读图带图 ' + readingWithFigure + ' 道），请重试'
       )

@@ -5,8 +5,9 @@ import { dirname, extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { extractText, extractImages, ExtractError } from './lib/extract.js'
 import { buildFigureAnalysisPrompt, parseFigureAnalysis, buildGenerationPrompt, parseGeneratedBank } from './lib/prompt.js'
+import { buildFigureCheckPrompt, parseFigureCheck, readingsMatch } from './lib/prompt.js'
 
-const VERSION = '1.4.0'
+const VERSION = '1.4.1'
 const GENERATE_PATH = '/physics-lab/generate'
 const PING_PATH = '/physics-lab/ping'
 const ASSETS_PATH = '/physics-lab/assets/'
@@ -20,6 +21,12 @@ const SYSTEM_PROMPT = [
   '你是大学物理实验课程的命题老师，擅长把实验讲义转化为笔试复习题。',
   '你只输出一个合法的 JSON 对象，不输出 Markdown 代码块、解释、前后缀或注释。',
   '所有题目必须严格依据给定讲义，不能编造讲义中没有的数据、仪器型号或结论。',
+].join('\n')
+const VERIFY_SYSTEM = [
+  '你是读图复核员，只依据用户提供的图片判断题目选项是否成立。',
+  '不要参考讲义文字、题目解析或“正确选项”这个身份本身。',
+  '看不清、需要猜测、图中读数与选项不一致时，判 match=false。',
+  '只输出一个合法的 JSON 对象，不输出其他文字。',
 ].join('\n')
 
 function sendJson(res, status, payload) {
@@ -63,7 +70,7 @@ function pickSelection(ctx) {
   }
 }
 
-async function callModel(ctx, prompt, imageRefs = [], maxTokens = 8000) {
+async function callModel(ctx, prompt, imageRefs = [], maxTokens = 8000, systemPrompt = SYSTEM_PROMPT) {
   const llm = ctx.get('llm')
   if (!llm || typeof llm.stream !== 'function') {
     const error = new Error('LLM 服务不可用，无法生成题目')
@@ -89,7 +96,7 @@ async function callModel(ctx, prompt, imageRefs = [], maxTokens = 8000) {
       provider: selection.provider,
       model: selection.model,
       reasoningEffort: 'off',
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: [{ role: 'user', content }],
       maxTokens,
       temperature: 0.35,
@@ -136,6 +143,31 @@ function cleanFileName(filename) {
 
 function stemName(filename) {
   return cleanFileName(filename).replace(/\.[^.]+$/, '') || '新实验专项'
+}
+
+async function verifyReadingQuestions(ctx, questions, imageFiles, imageRefs) {
+  const kept = []
+  for (const question of questions) {
+    if (question.dim !== 'reading' || !question.figure) {
+      kept.push(question)
+      continue
+    }
+    const index = imageFiles.findIndex((file) => file.filename === question.figure)
+    if (index < 0 || !imageRefs[index]) continue
+    try {
+      const raw = await callModel(ctx, buildFigureCheckPrompt(question), [imageRefs[index]], 1200, VERIFY_SYSTEM)
+      const check = parseFigureCheck(raw)
+      const correct = question.options[question.answer]
+      if (check.match && readingsMatch(check.reading, correct)) {
+        question.verified = true
+        if (!question.figureEvidence) question.figureEvidence = check.reason
+        kept.push(question)
+      }
+    } catch (err) {
+      console.warn('[physics-lab] reading verify failed:', err && err.message ? err.message : err)
+    }
+  }
+  return kept
 }
 
 async function handleGenerate(ctx, req, res) {
@@ -252,11 +284,19 @@ async function handleGenerate(ctx, req, res) {
       prompt =
         prompt +
         '\n\n注意：上一次输出不是合法 JSON，或没有按要求从文档图片出题。请严格只输出 JSON 对象；' +
-        (imageRefs.length ? '必须至少有 2 道题使用所附图片，并填写 figure 图号与 figureNote。' : '')
+        (imageRefs.length ? '必须至少有 1 道 reading 题使用所附图片，并填写 figure 图号与 figureEvidence。' : '')
       raw = await callModel(ctx, prompt, imageRefs)
       parsed = parseGeneratedBank(raw, fallbackName, expId, imageFiles)
     }
     if (userName) parsed.name = userName
+    if (imageRefs.length) {
+      parsed.questions = await verifyReadingQuestions(ctx, parsed.questions, imageFiles, imageRefs)
+      if (!parsed.questions.some((question) => question.dim === 'reading')) {
+        const error = new Error('读图题复核未通过，请重试')
+        error.status = 422
+        throw error
+      }
+    }
     const bank = {
       id: expId,
       name: parsed.name,
